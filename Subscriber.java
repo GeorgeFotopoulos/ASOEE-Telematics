@@ -25,11 +25,8 @@ public class Subscriber {
 				out = new ObjectOutputStream(subSocket.getOutputStream());
 				in = new ObjectInputStream(subSocket.getInputStream());
 				
-				//out.writeUnshared(new Message(101, "test data")); // Stelnei antikeimena, kaluterh apo writeObject
-				out.writeObject(new Message(2, "test Subscriber data")); // Stelnei antikeimena
-				out.flush();
-				
-				
+				out.writeObject(new Message(2, "test Subscriber data"));
+				out.flush();	
 				
 				System.out.println((Message) in.readUnshared());
 				out.flush();

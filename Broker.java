@@ -6,12 +6,11 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
-public class Broker{
+public class Broker {
 	
 	public static void main(String[] args) {
 		new Broker().openServer();
 	}
-	
 	
 	public void openServer() {
 		ServerSocket providerSocket = null;
@@ -26,19 +25,17 @@ public class Broker{
 					ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 					ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-					//System.out.println(in.readUTF());
 					Message temp=(Message) in.readUnshared();
 					System.out.println(temp);
 					out.flush();
-					//System.out.println(temp);
+					
 					if(temp.id==1){
 						info=temp;
 					}
 					if(temp.id==2){
 						out.writeUnshared(info);
-						
 					}
-					// System.out.println((Message) in.readObject());
+					
 					out.flush();
 					in.close();
 					out.close();

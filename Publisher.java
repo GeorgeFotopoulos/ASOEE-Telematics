@@ -5,12 +5,10 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class Publisher{
+public class Publisher {
 	Broker brok; 
-	static int value=12313;
-	public void getBrokerList() {
-		
-	}
+	static int value = 12313;
+	public void getBrokerList() {}
 	
 	public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
 		new Publisher().startClient();
@@ -21,7 +19,6 @@ public class Publisher{
 		ObjectOutputStream out = null;
 		ObjectInputStream in = null;
 		String message;
-		//Socket connection=null;
 		
 		try {
 			
@@ -32,9 +29,8 @@ public class Publisher{
 				out = new ObjectOutputStream(requestSocket.getOutputStream());
 				in = new ObjectInputStream(requestSocket.getInputStream());
 	
-				out.writeUnshared(new Message(1,value+"" )); // Stelnei antikeimena, kaluterh apo writeObject
-				// out.writeObject(new Message(101, "test data")); // Stelnei antikeimena
-				//System.out.println((Message) in.readUnshared());
+				out.writeUnshared(new Message(1,value+"" ));
+				
 				out.flush();
 			}
 		} catch (UnknownHostException unknownHost) {
@@ -53,7 +49,6 @@ public class Publisher{
 	}
 	
 	public Broker hashTopic(Topic topic) {
-	
 		return brok;
 	}
 	
@@ -65,7 +60,7 @@ public class Publisher{
 	public void notifyFailure(Broker broker) {
 		
 	}
-	//TO DO readfile for buslines,bus locations etc
+	//TO DO readfile for buslines, bus locations etc
 	//TO DO hashing 
 	// threads
 		
