@@ -18,7 +18,6 @@ public class Publisher {
 		Socket requestSocket = null;
 		ObjectOutputStream out = null;
 		ObjectInputStream in = null;
-		String message;
 		
 		try {
 			
@@ -60,8 +59,5 @@ public class Publisher {
 	public void notifyFailure(Broker broker) {
 		
 	}
-	//TO DO readfile for buslines, bus locations etc
-	//TO DO hashing 
-	// threads
 		
 }

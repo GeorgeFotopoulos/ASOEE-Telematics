@@ -15,11 +15,9 @@ public class Subscriber {
 		Socket subSocket = null;
 		ObjectOutputStream out = null;
 		ObjectInputStream in = null;
-		String message;
 		try {
 			
 			while (true) {
-				//wait(2000);
 				subSocket = new Socket(InetAddress.getByName("localhost"), 10240);
 				Thread.sleep(2000);
 				out = new ObjectOutputStream(subSocket.getOutputStream());
