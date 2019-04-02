@@ -7,42 +7,56 @@ import java.util.HashMap;
 import java.util.List;
 
 /*
-	TODO: read file for buslines, bus locations etc
-	TODO: hashing
-	Threads
+	TODO: Hashing, Synchronization, Threads
 */
 
 public class Broker {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		new Broker().openServer();
 	}
 	
-	public void openServer() {
+	public void openServer() throws InterruptedException {
 		ServerSocket providerSocket = null;
 		Socket connection=null;
-		// ServerSocket senderSocket = null;
 		Message info = null;
 		try {
 			providerSocket = new ServerSocket(10240);
+			System.out.println("Server with socket 10240 is opening...");
 				while (true) {
 					connection = providerSocket.accept();
 					
 					ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
 					ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-					Message temp=(Message) in.readUnshared();
+					Message temp=(Message) in.readObject();
 					System.out.println(temp);
-					out.flush();
 					
-					if(temp.id==1){
+					if(temp.getPubSub()){
 						info=temp;
 					}
-					if(temp.id==2){
-						out.writeUnshared(info);
+					if(!temp.getPubSub()){
+						if(info==null){
+							try {
+								out.writeObject(new Message (false, temp.getbusline(), "No connection with Pub, retrying..."));
+								out.flush();
+								Thread.sleep(2000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						} else {
+							if(info.getbusline().equals("750")){
+								//Thread.sleep(100);
+								out.writeObject(info);
+								out.flush();
+								//Thread.sleep(2000);
+							} else {
+								out.writeObject(new Message (false, "Error", ""));
+								out.flush();
+							}
+						}
 					}
 					
-					out.flush();
 					in.close();
 					out.close();
 					connection.close();
@@ -59,13 +73,9 @@ public class Broker {
 			}
 		}
 	}
-
-
-	List <Broker> brokers;
-	List<Publisher> registeredPublishers;
+	List<Broker> brokers;
 	List<Subscriber> registeredSubscribers;
-
-	HashMap<Topic,Value> HM;
+	HashMap<Topic, Value> HM;
 
 	int IDforthisBroker;
 	static int BrokerID=1000;
@@ -85,21 +95,12 @@ public class Broker {
 	
 	}
 	
-	public Publisher acceptConnection(Publisher publisher) {
-		registeredPublishers.add(publisher);
-		return publisher;
-	
-	}
-	
 	public Subscriber acceptConnection(Subscriber subscriber) {
 		registeredSubscribers.add(subscriber);
 		return subscriber;
-	
 	}
 	
-	public void notifyPublisher(String notification) {
-		
-	}
+	public void notifyPublisher(String notification) {}
 	
 	public void pull(Topic topic) {
 		Value Message; // Threads

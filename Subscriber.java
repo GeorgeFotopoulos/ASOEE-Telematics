@@ -10,24 +10,25 @@ public class Subscriber {
 	public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
 		new Subscriber().startClient();
 	}
-	
+	Message current =new Message(true,"asdasd ","asda");
 	public void startClient() throws ClassNotFoundException, InterruptedException {
 		Socket subSocket = null;
 		ObjectOutputStream out = null;
 		ObjectInputStream in = null;
 		try {
-			
 			while (true) {
 				subSocket = new Socket(InetAddress.getByName("localhost"), 10240);
-				Thread.sleep(2000);
 				out = new ObjectOutputStream(subSocket.getOutputStream());
 				in = new ObjectInputStream(subSocket.getInputStream());
 				
-				out.writeObject(new Message(2, "test Subscriber data"));
+				out.writeObject(new Message(false, "750", " sub inquiry"));
 				out.flush();	
-				
-				System.out.println((Message) in.readUnshared());
-				out.flush();
+				Message temp=(Message) in.readObject();
+				if(temp.busline.equals("750") && !current.data.equals(temp.data)){
+					current.data=temp.data;
+					System.out.println(temp);
+					Thread.sleep(2000);
+				}
 			}
 		} catch (UnknownHostException unknownHost) {
 			System.err.println("You are trying to connect to an unknown host!");
@@ -53,7 +54,5 @@ public class Subscriber {
 		broker.registeredSubscribers.remove(topic);
 	}
 	
-	public void visualiseData(Topic topic, Value value) {
-	
-	}
+	public void visualiseData(Topic topic, Value value) {}
 }

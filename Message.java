@@ -3,21 +3,31 @@ import java.io.Serializable;
 public class Message implements Serializable {
 
 	private static final long serialVersionUID = 12345L;
-	int id;
+	boolean pubTrueSubFalse;
+	String busline;
 	String data;
 
-	public Message(int id, String data) {
+	public Message(boolean pubTrueSubFalse, String busline, String data) {
 		super();
-		this.id = id;
+		this.pubTrueSubFalse = pubTrueSubFalse;
+		this.busline = busline;
 		this.data = data;
 	}
-
-	public int getId() {
-		return id;
+	
+	public boolean getPubSub() {
+		return pubTrueSubFalse;
+	}
+	
+	public void setPubSub(boolean pubTrueSubFalse) {
+		this.pubTrueSubFalse = pubTrueSubFalse;
+	}
+	
+	public String getbusline() {
+		return busline;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setbusline(String busline) {
+		this.busline = busline;
 	}
 
 	public String getData() {
@@ -29,6 +39,7 @@ public class Message implements Serializable {
 	}
 
 	public String toString() {
-		return id + " - " + data;
+		return busline + " - " + data;
 	}
+	
 }

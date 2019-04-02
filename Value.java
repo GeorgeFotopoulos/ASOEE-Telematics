@@ -1,6 +1,13 @@
-
 public class Value {
-	Bus bus;
-	double latitude,longitude;
+	
+	String latitude,longitude;
+	
+	public Value(String latitude, String longitude) {
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
 
+	public String toString() {
+		return (latitude + " - " + longitude);
+	}
 }
