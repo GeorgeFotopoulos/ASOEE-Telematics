@@ -21,13 +21,12 @@ public class Subscriber {
 				out = new ObjectOutputStream(subSocket.getOutputStream());
 				in = new ObjectInputStream(subSocket.getInputStream());
 				
-				out.writeObject(new Message(false, "750", " sub inquiry"));
+				out.writeObject(new Message(false, "036", " sub inquiry"));
 				out.flush();	
 				Message temp=(Message) in.readObject();
-				if(temp.busline.equals("750") && !current.data.equals(temp.data)){
+				if(!current.data.equals(temp.data)){
 					current.data=temp.data;
 					System.out.println(temp);
-					Thread.sleep(2000);
 				}
 			}
 		} catch (UnknownHostException unknownHost) {

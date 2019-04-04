@@ -23,21 +23,18 @@ public class Publisher {
 		ObjectInputStream in = null;
 		HashMap<String, String> busLines = FileReaders.readBusLines(new File("busLinesNew.txt"));
 		ArrayList<Message> busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
-		
-		System.out.println(busPositions.get(0).getbusline() + " " + busPositions.get(0).getData());
 		try {
 			while (true) {
 			    for(int i=0; i < busPositions.size(); i++) {
-			    	requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
-					value++;
-					out = new ObjectOutputStream(requestSocket.getOutputStream());
-					in = new ObjectInputStream(requestSocket.getInputStream());
-		
-					out.writeObject(new Message(true, busPositions.get(i).getbusline(), busPositions.get(i).getData()));
-					if(busPositions.get(i).getbusline().equals("750")){
-						Thread.sleep(2000);
+			    	
+					if(busPositions.get(i).getbusline().equals("1219")){
+						requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
+						out = new ObjectOutputStream(requestSocket.getOutputStream());
+						in = new ObjectInputStream(requestSocket.getInputStream());
+						out.writeObject(new Message(true, busLines.get(busPositions.get(i).getbusline()),busPositions.get(i).getbusline()+" - " +busPositions.get(i).getData()));
+						 Thread.sleep(1500);
+						 out.flush();
 					}
-					out.flush();
 			    }
 			}
 		} catch (UnknownHostException unknownHost) {
@@ -64,8 +61,6 @@ public class Publisher {
 		 tempBroker.HM.put(topic, value);
 	}
 	
-	public void notifyFailure(Broker broker) {
-		
-	}
+	public void notifyFailure(Broker broker) {}
 	
 }

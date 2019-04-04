@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class FileReaders {
-	
+
+
 	public static HashMap<String, String> readBusLines(File fileName) {
 		HashMap<String, String> busLines = new HashMap<String, String>();
 		BufferedReader br = null;
@@ -20,7 +21,7 @@ public class FileReaders {
 				StringTokenizer st = new StringTokenizer(sCurrentLine, ",");
 				String lineCode = st.nextToken();
 				String lineID = st.nextToken();
-				busLines.put(lineCode, lineID);
+				busLines.put(lineID, lineCode);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
