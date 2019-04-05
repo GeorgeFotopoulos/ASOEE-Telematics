@@ -18,7 +18,7 @@ public class Publisher {
         init(14111);
         Publisher p = new Publisher();
         p.getBrokerList();
-        new Publisher().startClient();
+        new Publisher().startClient(); // p.startClient();
     }
 
     public void getBrokerList() {
@@ -37,8 +37,8 @@ public class Publisher {
         while (true) {
             try {
                 s = InfoTaker.accept();
-                ObjectInputStream dis = new ObjectInputStream(s.getInputStream());
-                Message temp = (Message) dis.readObject();
+                ObjectInputStream input = new ObjectInputStream(s.getInputStream());
+                Message temp = (Message) input.readObject();
                 System.out.println(temp.port);
                 Message info = new Message(temp.topics, temp.port);
                 allchoices.add(temp);
