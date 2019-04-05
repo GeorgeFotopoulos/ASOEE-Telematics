@@ -3,64 +3,97 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Publisher {
-	Broker brok; 
-	static int value = 12313;
-	public void getBrokerList() {}
-	
-	public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
-		new Publisher().startClient();
-	}
-	
-	public void startClient() throws ClassNotFoundException, InterruptedException {
-		Socket requestSocket = null;
-		ObjectOutputStream out = null;
-		ObjectInputStream in = null;
-		HashMap<String, String> busLines = FileReaders.readBusLines(new File("busLinesNew.txt"));
-		ArrayList<Message> busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
-		try {
-			while (true) {
-			    for(int i=0; i < busPositions.size(); i++) {
-			    	
-					if(busPositions.get(i).getbusline().equals("1219")){
-						requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
-						out = new ObjectOutputStream(requestSocket.getOutputStream());
-						in = new ObjectInputStream(requestSocket.getInputStream());
-						out.writeObject(new Message(true, busLines.get(busPositions.get(i).getbusline()),busPositions.get(i).getbusline()+" - " +busPositions.get(i).getData()));
-						 Thread.sleep(1500);
-						 out.flush();
-					}
-			    }
-			}
-		} catch (UnknownHostException unknownHost) {
-			System.err.println("You are trying to connect to an unknown host!");
-		} catch (IOException ioException) {
-			ioException.printStackTrace();
-		} finally {
-			try {
-				in.close();
-				out.close();
-				requestSocket.close();
-			} catch (IOException ioException) {
-				ioException.printStackTrace();
-			}
-		}
-	}
-	
-	public Broker hashTopic(Topic topic) {
-		return brok;
-	}
-	
-	public void push(Topic topic, Value value) {
-		 Broker tempBroker=hashTopic(topic);
-		 tempBroker.HM.put(topic, value);
-	}
-	
-	public void notifyFailure(Broker broker) {}
-	
+    static ServerSocket InfoTaker = null;
+    private static int portid;
+    Broker brok;
+    static ArrayList<Message> allchoices = new ArrayList<>();
+
+    public static void main(String[] args) throws InterruptedException {
+        init(14111);
+        Publisher p = new Publisher();
+        p.getBrokerList();
+        System.out.println("Gemise");
+        new Publisher().startClient();
+    }
+
+    public void getBrokerList() {
+        Socket requestSocket;
+        ObjectOutputStream out;
+        try {
+            requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
+            out = new ObjectOutputStream(requestSocket.getOutputStream());
+            out.writeObject(new Message(4, "Give all the information to the publisher. ", 14111 + ""));
+            Thread.sleep(50);
+            out.flush();
+        } catch (Exception e) {
+        }
+        Socket s;
+        int i = 0;
+        while (true) {
+            try {
+                s = InfoTaker.accept();
+                ObjectInputStream dis = new ObjectInputStream(s.getInputStream());
+                Message temp = (Message) dis.readObject();
+                System.out.println(temp.port);
+                Message info = new Message(temp.topics, temp.port);
+                allchoices.add(temp);
+                System.out.println(allchoices.get(i));
+                System.out.println(info);
+                i++;
+                if (i == 3) break;
+            } catch (Exception e) {
+                System.err.println("ERROR!");
+                continue;
+            }
+        }
+        System.out.println(allchoices);
+    }
+
+    public void startClient() throws InterruptedException {
+        Socket requestSocket;
+        ObjectOutputStream out;
+        HashMap<String, String> busLines = FileReaders.readBusLines(new File("busLinesNew.txt"));
+        ArrayList<Message> busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
+        while (true) {
+            for (int i = 0; i < busPositions.size(); i++) {
+                for (String key : busLines.keySet()) {
+                    if (busLines.get(key).equals(busPositions.get(i).getbusline())) {
+                        try {
+                            requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
+                            out = new ObjectOutputStream(requestSocket.getOutputStream());
+                            out.writeObject(new Message(1, key, busPositions.get(i).getbusline() + " - " + busPositions.get(i).getData()));
+                            Thread.sleep(50);
+                            out.flush();
+                        } catch (Exception e) {
+                            System.out.println("Publisher couldn't connect with Server. Retrying...");
+                            Thread.sleep(2000);
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    public static void init(int i) {
+        Publisher.portid = i;
+        try {
+            InfoTaker = new ServerSocket(i);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    public void push(Topic topic, Value value) { }
+
+    public void notifyFailure(Broker broker) { }
+     */
 }
