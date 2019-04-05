@@ -1,6 +1,6 @@
 public class Bus {
 
-    String lineNumber, routeCode, vehicleId, lineName, buslineID, info;
+    private String lineNumber, routeCode, vehicleId, lineName, buslineID, info;
 
     public String getLineNumber() {
         return this.lineNumber;

@@ -3,6 +3,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class md5 {
+
     public static String getMd5(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

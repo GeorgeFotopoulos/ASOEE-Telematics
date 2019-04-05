@@ -28,12 +28,11 @@ public class Subscriber {
                     System.out.println(temp);
                 }
             } catch (Exception e) {
-                System.out.println("Connection with server is not ready yet ");
-                Thread.sleep(2000);
+                System.out.println("Subscriber couldn't connect with Server! Retrying in 3.. 2.. 1..");
+                Thread.sleep(3000);
                 continue;
             }
         }
-
     }
 
     /*

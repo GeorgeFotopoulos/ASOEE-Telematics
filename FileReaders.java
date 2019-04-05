@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 public class FileReaders {
 
     public static HashMap<String, String> readBusLines(File fileName) {
-        HashMap<String, String> busLines = new HashMap<String, String>();
+        HashMap<String, String> busLines = new HashMap<>();
         BufferedReader br = null;
         FileReader fr = null;
         try {
@@ -35,11 +35,10 @@ public class FileReaders {
         return busLines;
     }
 
-    public static void readRouteCodes(File fileName) {
-    }
+    //public static void readRouteCodes(File fileName) {}
 
     public static ArrayList<Message> readBusPositions(File fileName) {
-        ArrayList<Message> busPositions = new ArrayList<Message>();
+        ArrayList<Message> busPositions = new ArrayList<>();
         BufferedReader br = null;
         FileReader fr = null;
         String latitude, longitude;

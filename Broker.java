@@ -8,10 +8,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 
-/*
-	TODO: Synchronization, Threads
-*/
-
 public class Broker {
 
     List<Broker> brokers;
@@ -64,10 +60,10 @@ public class Broker {
                             dis.writeObject(new Message(3, temp.data, " Should send the topics to this port"));
                             dis.flush();
                             System.out.println(temp.data + " PAOK");
-                            notify(Integer.parseInt(temp.data));
-                        } catch (Exception e) {
-                        }
+
+                        } catch (Exception e) { }
                     }
+                    notify(Integer.parseInt(temp.data));
                 }
                 connection.close();
             } catch (Exception e) {

@@ -24,24 +24,12 @@ public class Message implements Serializable {
         return PubSubBrok;
     }
 
-    public void setPubSub(int PubSubBrok) {
-        this.PubSubBrok = PubSubBrok;
-    }
-
     public String getbusline() {
         return busline;
     }
 
-    public void setbusline(String busline) {
-        this.busline = busline;
-    }
-
     public String getData() {
         return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public String toString() {

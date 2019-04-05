@@ -18,7 +18,6 @@ public class Publisher {
         init(14111);
         Publisher p = new Publisher();
         p.getBrokerList();
-        System.out.println("Gemise");
         new Publisher().startClient();
     }
 
@@ -71,8 +70,8 @@ public class Publisher {
                             Thread.sleep(50);
                             out.flush();
                         } catch (Exception e) {
-                            System.out.println("Publisher couldn't connect with Server. Retrying...");
-                            Thread.sleep(2000);
+                            System.out.println("Publisher couldn't connect with Server! Retrying in 3.. 2.. 1..");
+                            Thread.sleep(3000);
                             continue;
                         }
                     }
