@@ -28,8 +28,8 @@ public class Publisher {
             requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
             out = new ObjectOutputStream(requestSocket.getOutputStream());
             out.writeObject(new Message(4, "Give all the information to the publisher. ", 14111 + ""));
-            Thread.sleep(50);
             out.flush();
+            Thread.sleep(50);
         } catch (Exception e) {
         }
         Socket s;
@@ -67,8 +67,8 @@ public class Publisher {
                             requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
                             out = new ObjectOutputStream(requestSocket.getOutputStream());
                             out.writeObject(new Message(1, key, busPositions.get(i).getbusline() + " - " + busPositions.get(i).getData()));
-                            Thread.sleep(50);
                             out.flush();
+                            Thread.sleep(50);
                         } catch (Exception e) {
                             System.out.println("Publisher couldn't connect with Server! Retrying in 3.. 2.. 1..");
                             Thread.sleep(3000);

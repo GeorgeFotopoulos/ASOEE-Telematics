@@ -22,7 +22,7 @@ public class Broker {
     static HashMap<String, String> IPPORT;
 
     public static void main(String[] args) {
-        System.out.println("Which broker is this?Give 1 for first 2 for second 3 for third");
+        System.out.println("Which broker is this?\nType 1 for first, 2 for second & 3 for third: ");
         Scanner in = new Scanner(System.in);
         int choice = in.nextInt();
         init(10240 + (choice - 1));
@@ -56,9 +56,9 @@ public class Broker {
                     for (String key : IPPORT.keySet()) {
                         try {
                             Socket innercontact = new Socket(InetAddress.getByName("localhost"), Integer.parseInt(key));
-                            ObjectOutputStream dis = new ObjectOutputStream(innercontact.getOutputStream());
-                            dis.writeObject(new Message(3, temp.data, " Should send the topics to this port"));
-                            dis.flush();
+                            ObjectOutputStream input = new ObjectOutputStream(innercontact.getOutputStream());
+                            input.writeObject(new Message(3, temp.data, " Should send the topics to this port"));
+                            input.flush();
                             System.out.println(temp.data + " PAOK");
 
                         } catch (Exception e) { }
