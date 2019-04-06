@@ -52,16 +52,17 @@ public class Broker {
                     System.out.println(temp.busline);
                     notify(Integer.parseInt(temp.busline));
                 } else if (temp.getPubSub() == 4) {
+
                     System.out.println("TYPOU 4");
                     for (String key : IPPORT.keySet()) {
                         try {
                             Socket innercontact = new Socket(InetAddress.getByName("localhost"), Integer.parseInt(key));
-                            ObjectOutputStream input = new ObjectOutputStream(innercontact.getOutputStream());
-                            input.writeObject(new Message(3, temp.data, " Should send the topics to this port"));
-                            input.flush();
+                            ObjectOutputStream output = new ObjectOutputStream(innercontact.getOutputStream());
+                            output.writeObject(new Message(3, temp.data, " Should send the topics to this port"));
+                            output.flush();
                             System.out.println(temp.data + " PAOK");
-
-                        } catch (Exception e) { }
+                        } catch (Exception e) {
+                        }
                     }
                     notify(Integer.parseInt(temp.data));
                 }
@@ -119,13 +120,14 @@ public class Broker {
         registeredSubscribers.add(subscriber);
         return subscriber;
     }
-
+    public void connect(){}
+    public void disconnect(){}
     public void pull(Topic topic) {
         Value Message; // Threads
         for (Subscriber subs : registeredSubscribers) {
             Message = HM.get(topic);
         }
     }
-     */
+    */
 
 }

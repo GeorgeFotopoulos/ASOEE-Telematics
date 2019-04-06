@@ -91,8 +91,9 @@ public class Publisher {
     }
 
     /*
-    public void push(Topic topic, Value value) { }
-
-    public void notifyFailure(Broker broker) { }
-     */
+    public void push(Topic topic, Value value) {}
+    public void notifyFailure(Broker broker) {}
+    public void connect() {}
+    public void disconnect() {}
+    */
 }

@@ -1,6 +1,8 @@
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Subscriber {
@@ -40,10 +42,10 @@ public class Subscriber {
         broker.acceptConnection(this);
         broker.HM.get(topic);
     }
-
     public void disconnect(Broker broker, Topic topic) { broker.registeredSubscribers.remove(topic); }
-
     public void visualiseData(Topic topic, Value value) {}
-
-     */
+    public void connect() {}
+    public void disconnect() {}
+    public static void init(int i) {}
+    */
 }
