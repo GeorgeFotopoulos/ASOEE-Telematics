@@ -19,74 +19,53 @@ public class Publisher {
     static HashMap<String, String> busLines = new HashMap<>();
     static ArrayList<Message> busPositions = new ArrayList<>();
 
-    public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
         init(14111);
         getBrokerList();
-        System.out.println("Gemise");
         new Publisher().startClient();
     }
 
     public static void getBrokerList() {
-        Socket requestSocket = null;
-        ObjectOutputStream out = null;
-        ObjectInputStream in = null;
+        Socket requestSocket;
+        ObjectOutputStream out;
         try {
             requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
             out = new ObjectOutputStream(requestSocket.getOutputStream());
             out.writeObject(new Message(4, "Give to the publisher all the info ", 14111 + ""));
-            Thread.sleep(50);
             out.flush();
+            Thread.sleep(50);
         } catch (Exception e) {
         }
         Socket s;
         int i = 0;
         while (true) {
             try {
-                // socket object to receive incoming client requests
                 s = InfoTaker.accept();
-
-                // obtaining input and out streams
-
-                ObjectInputStream dis = new ObjectInputStream(s.getInputStream());
-                ObjectOutputStream dos = new ObjectOutputStream(s.getOutputStream());
-                Message temp = (Message) dis.readObject();
-                dos.flush();
+                ObjectInputStream input = new ObjectInputStream(s.getInputStream());
+                Message temp = (Message) input.readObject();
                 Message info = new Message(temp.topics, temp.port);
                 allchoices.add(info);
                 System.out.println(allchoices.get(i));
                 i++;
-                if (i == 3)
-                    break;
-                // create a new thread object
-                //  Thread t = new ClientHandler(s, dis, dos);
-
-                // Invoking the start() method
-                //t.start();
-
+                if (i == 3) break;
             } catch (Exception e) {
-                System.out.println("errrorroroorro");
+                System.err.println("ERROR!");
                 continue;
             }
         }
-        // System.out.println(allchoices);
     }
 
-    public void startClient() throws ClassNotFoundException, InterruptedException {
-        Socket requestSocket = null;
-        ObjectOutputStream out = null;
-        ObjectInputStream in = null;
-
+    public void startClient() throws InterruptedException {
+        Socket requestSocket;
+        ObjectOutputStream out;
         while (true) {
             for (int i = 0; i < busPositions.size(); i++) {
                 for (String key : busLines.keySet()) {
-                    //System.out.println(busLines.get(key));
-                    //System.out.println(busPositions.get(i).getbusline());
                     if (busLines.get(key).equals(busPositions.get(i).getbusline())) {
                         try {
                             requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
                             out = new ObjectOutputStream(requestSocket.getOutputStream());
-                            in = new ObjectInputStream(requestSocket.getInputStream());
                             out.writeObject(new Message(1, key, busPositions.get(i).getbusline() + " - " + busPositions.get(i).getData()));
                             out.flush();
                         } catch (Exception e) {
@@ -98,7 +77,6 @@ public class Publisher {
                 }
             }
         }
-
     }
 
     public static void init(int i) {
@@ -114,11 +92,23 @@ public class Publisher {
         }
     }
 
-    public void push(Topic topic, Value value) {
+    /*
 
+    public Broker hashTopic(Topic topic) {
+    }
+
+    public void push(Topic topic, Value value) {
     }
 
     public void notifyFailure(Broker broker) {
     }
+
+    public void connect() {
+    }
+
+    public void disconnect() {
+    }
+
+     */
 
 }

@@ -7,16 +7,16 @@ import java.net.UnknownHostException;
 
 public class Subscriber {
 
-    public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         new Subscriber().startClient();
     }
 
     Message current = new Message(2, "asdasd ", "asda");
 
-    public void startClient() throws ClassNotFoundException, InterruptedException {
-        Socket subSocket = null;
-        ObjectOutputStream out = null;
-        ObjectInputStream in = null;
+    public void startClient() throws InterruptedException {
+        Socket subSocket;
+        ObjectOutputStream out;
+        ObjectInputStream in;
         while (true) {
             try {
                 subSocket = new Socket(InetAddress.getByName("localhost"), 10240);
@@ -38,6 +38,8 @@ public class Subscriber {
 
     }
 
+    /*
+
     public void register(Broker broker, Topic topic) {
         broker.acceptConnection(this);
         broker.HM.get(topic);
@@ -49,4 +51,15 @@ public class Subscriber {
 
     public void visualiseData(Topic topic, Value value) {
     }
+
+    public static void init(int i) {
+    }
+
+    public void connect() {
+    }
+
+    public void disconnect() {
+    }
+
+     */
 }
