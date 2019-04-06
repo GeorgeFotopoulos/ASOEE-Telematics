@@ -9,22 +9,25 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Publisher {
     static ServerSocket InfoTaker = null;
     private static int portid;
     Broker brok;
-    ArrayList<Message> allchoices = new ArrayList<>();
+    static ArrayList<Message> allchoices = new ArrayList<>();
+    static HashMap<String, String> busLines = new HashMap<>();
+    static ArrayList<Message> busPositions = new ArrayList<>();
 
     public static void main(String[] args) throws ClassNotFoundException, InterruptedException {
+        busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
         init(14111);
-        Publisher p = new Publisher();
-        p.getBrokerList();
+        getBrokerList();
         System.out.println("Gemise");
         new Publisher().startClient();
     }
 
-    public void getBrokerList() {
+    public static void getBrokerList() {
         Socket requestSocket = null;
         ObjectOutputStream out = null;
         ObjectInputStream in = null;
@@ -73,8 +76,6 @@ public class Publisher {
         Socket requestSocket = null;
         ObjectOutputStream out = null;
         ObjectInputStream in = null;
-        HashMap<String, String> busLines = FileReaders.readBusLines(new File("busLinesNew.txt"));
-        ArrayList<Message> busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
 
         while (true) {
             for (int i = 0; i < busPositions.size(); i++) {
@@ -101,6 +102,10 @@ public class Publisher {
     }
 
     public static void init(int i) {
+        busLines = FileReaders.readBusLines(new File("busLinesNew.txt"));
+        System.out.println("Which Publisher is it (1 or 2)");
+        Scanner in = new Scanner(System.in);
+        int choice = in.nextInt();
         Publisher.portid = i;
         try {
             InfoTaker = new ServerSocket(i);
