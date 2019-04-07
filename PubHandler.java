@@ -25,9 +25,10 @@ class PubHandler extends Thread {
                         for (int j = 0; j < Publisher.busPositions.size(); j++) {
                             //System.out.println(Publisher.allchoices.get(i).topics);
                             for (int x = 0; x < Publisher.allchoices.get(i).topics.size(); x++) {
-                               // System.out.println(Publisher.busLines.get(Publisher.allchoices.get(i).topics.get(x)));
+                                // System.out.println(Publisher.busLines.get(Publisher.allchoices.get(i).topics.get(x)));
                                 if ((Publisher.busLines.get(Publisher.allchoices.get(i).topics.get(x))).equals(Publisher.busPositions.get(j).busline)) {
                                     System.out.println(Port +" ----------------  " +Publisher.allchoices.get(i).topics.get(x));
+                                    //Publisher.push(dos,Publisher.busPositions.get(j));
                                     Thread.sleep(500);
                                 }
                             }

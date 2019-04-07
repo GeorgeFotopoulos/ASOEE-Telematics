@@ -20,6 +20,7 @@ public class Publisher {
     public static void main(String[] args) throws InterruptedException {
         busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
         init(14111);
+        System.out.println(portid);
         getBrokerList();
         new Publisher().startClient();
     }
@@ -28,17 +29,23 @@ public class Publisher {
         Socket requestSocket;
         ObjectOutputStream out;
         try {
+            System.err.println("BUsy1");
             requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
+            System.err.println("BUsy2");
             out = new ObjectOutputStream(requestSocket.getOutputStream());
+            System.err.println("BUsy3");
             out.writeObject(new Message(4, "Give to the publisher all the info ", portid + ""));
+            System.err.println("BUsy4");
             out.flush();
             Thread.sleep(50);
         } catch (Exception e) {
+            System.err.println("BUsy");
         }
         Socket s;
         int i = 0;
         while (true) {
             try {
+                System.err.println("BUsy5");
                 s = InfoTaker.accept();
                 ObjectInputStream input = new ObjectInputStream(s.getInputStream());
                 Message temp = (Message) input.readObject();
@@ -46,11 +53,24 @@ public class Publisher {
                 allchoices.add(info);
                 System.out.println(temp.topics);
                 i++;
-                if (i == 3) break;
+                System.out.println("paoapapapap");
+                if (i == 3) {
+                  input.close();
+                    break;
+                }
             } catch (Exception e) {
                 System.err.println("ERROR!");
                 continue;
             }
+        }
+    }
+
+    public static synchronized void push(ObjectOutputStream out, Message msg) {
+        try {
+            out.writeObject(new Message(1, msg.busline, msg.data));
+            out.flush();
+        } catch (IOException e) {
+            System.err.println("Couldn't send from Pub to Broker");
         }
     }
 
@@ -64,7 +84,9 @@ public class Publisher {
                         ObjectOutputStream out = new ObjectOutputStream(requestSocket.getOutputStream());
                         // in=new ObjectInputStream(requestSocket.getInputStream());
                         PubHandler ph = new PubHandler(requestSocket, out, allchoices.get(i).port);
+
                         ph.start();
+                        out.flush();
                         break;
                     } catch (Exception e) {
                         System.out.println("Error");

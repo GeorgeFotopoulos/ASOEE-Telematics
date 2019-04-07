@@ -50,6 +50,14 @@ public class Broker {
                 connection = providerSocket.accept();
                 ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
                 Message temp = (Message) in.readObject();
+               // System.out.println(temp.data);
+               // if(temp.getPubSub() == 1){
+               //     while(true){
+               //         temp = (Message) in.readObject();
+               //         System.out.println(temp.data);
+//
+               //     }
+               // }
                 if (temp.getPubSub() == 3) {
                     System.out.println("PHRE KWDIKO 3");
                     System.out.println(temp.busline);
