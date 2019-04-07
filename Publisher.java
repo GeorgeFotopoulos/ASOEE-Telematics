@@ -29,24 +29,21 @@ public class Publisher {
         Socket requestSocket;
         ObjectOutputStream out;
         try {
-            System.err.println("BUsy1");
             requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
-            System.err.println("BUsy2");
             out = new ObjectOutputStream(requestSocket.getOutputStream());
-            System.err.println("BUsy3");
             out.writeObject(new Message(4, "Give to the publisher all the info ", portid + ""));
-            System.err.println("BUsy4");
             out.flush();
             Thread.sleep(50);
         } catch (Exception e) {
-            System.err.println("BUsy");
+
         }
         Socket s;
         int i = 0;
         while (true) {
             try {
-                System.err.println("BUsy5");
+
                 s = InfoTaker.accept();
+
                 ObjectInputStream input = new ObjectInputStream(s.getInputStream());
                 Message temp = (Message) input.readObject();
                 Message info = new Message(temp.topics, temp.port);
@@ -55,7 +52,7 @@ public class Publisher {
                 i++;
                 System.out.println("paoapapapap");
                 if (i == 3) {
-                  input.close();
+                    input.close();
                     break;
                 }
             } catch (Exception e) {

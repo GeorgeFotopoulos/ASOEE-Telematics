@@ -17,7 +17,7 @@ public class Broker {
     static List<Broker> brokers;
     static List<Subscriber> registeredSubscribers;
     static List<Publisher> registeredPublishers;
-    static HashMap<Topic, Value> HM;
+    static HashMap<String, String> HM=new HashMap<>();
     static ArrayList<String> Topics = new ArrayList<>();
     static int portid;
     static String myIP;
@@ -48,36 +48,24 @@ public class Broker {
             Socket connection;
             try {
                 connection = providerSocket.accept();
+               // System.out.println("New Connection");
+                ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
-                Message temp = (Message) in.readObject();
-               // System.out.println(temp.data);
-               // if(temp.getPubSub() == 1){
-               //     while(true){
-               //         temp = (Message) in.readObject();
-               //         System.out.println(temp.data);
-//
-               //     }
-               // }
-                if (temp.getPubSub() == 3) {
-                    System.out.println("PHRE KWDIKO 3");
-                    System.out.println(temp.busline);
-                    notify(Integer.parseInt(temp.busline));
-                } else if (temp.getPubSub() == 4) {
-                    System.out.println(temp);
-                    System.out.println("TYPOU 4");
-                    for (String key : IPPORT.keySet()) {
-                        try {
-                            Socket innercontact = new Socket(InetAddress.getByName("localhost"), Integer.parseInt(key));
-                            ObjectOutputStream dis = new ObjectOutputStream(innercontact.getOutputStream());
-                            dis.writeObject(new Message(3, temp.data, " Should send the topics to this port"));
-                            dis.flush();
-                        } catch (Exception e) {
-                        }
 
-                    }
-                    notify(Integer.parseInt(temp.data));
-                }
-                connection.close();
+                Thread t = new ClientHandler(connection, in, out);
+
+                // Invoking the start() method
+                t.start();
+                // System.out.println(temp.data);
+                // if(temp.getPubSub() == 1){
+                //     while(true){
+                //         temp = (Message) in.readObject();
+                //         System.out.println(temp.data);
+//
+                //     }
+                // }
+
+
             } catch (Exception e) {
                 System.err.println("paok");
                 continue;
@@ -114,7 +102,7 @@ public class Broker {
         IPPORT.remove(portid + "");
     }
 
-    public static void notify(int Port) {
+    public static synchronized void notify(int Port) {
         System.out.println(portid);
         ObjectOutputStream out;
         try {

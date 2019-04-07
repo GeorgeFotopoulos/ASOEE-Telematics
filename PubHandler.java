@@ -27,8 +27,8 @@ class PubHandler extends Thread {
                             for (int x = 0; x < Publisher.allchoices.get(i).topics.size(); x++) {
                                 // System.out.println(Publisher.busLines.get(Publisher.allchoices.get(i).topics.get(x)));
                                 if ((Publisher.busLines.get(Publisher.allchoices.get(i).topics.get(x))).equals(Publisher.busPositions.get(j).busline)) {
-                                    System.out.println(Port +" ----------------  " +Publisher.allchoices.get(i).topics.get(x));
-                                    //Publisher.push(dos,Publisher.busPositions.get(j));
+                                    Message msg=(new Message(1,Publisher.allchoices.get(i).topics.get(x),Publisher.busPositions.get(j).data));
+                                    Publisher.push(dos,msg);
                                     Thread.sleep(500);
                                 }
                             }
