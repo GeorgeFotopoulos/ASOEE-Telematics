@@ -30,7 +30,7 @@ public class Publisher {
         try {
             requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
             out = new ObjectOutputStream(requestSocket.getOutputStream());
-            out.writeObject(new Message(4, "Give to the publisher all the info ", 14111 + ""));
+            out.writeObject(new Message(4, "Give to the publisher all the info ", portid + ""));
             out.flush();
             Thread.sleep(50);
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class Publisher {
                 Message temp = (Message) input.readObject();
                 Message info = new Message(temp.topics, temp.port);
                 allchoices.add(info);
-
+                System.out.println(temp.topics);
                 i++;
                 if (i == 3) break;
             } catch (Exception e) {
@@ -56,25 +56,42 @@ public class Publisher {
 
     public void startClient() throws InterruptedException {
         Socket requestSocket;
-        ObjectOutputStream out;
-        while (true) {
-            for (int i = 0; i < busPositions.size(); i++) {
-                for (int j = 0; j < PubsDuty.size(); j++) {
-                    if (busLines.get(PubsDuty.get(j)).equals(busPositions.get(i).getbusline())) {
-                        try {
-                            requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
-                            out = new ObjectOutputStream(requestSocket.getOutputStream());
-                            out.writeObject(new Message(1, PubsDuty.get(j), busPositions.get(i).getbusline() + " - " + busPositions.get(i).getData()));
-                            out.flush();
-                        } catch (Exception e) {
-                            System.out.println("Publisher couldn't connect with Server. Retrying...");
-                            Thread.sleep(2000);
-                            continue;
-                        }
+        for (int i = 0; i < allchoices.size(); i++) {
+            for (int j = 0; j < PubsDuty.size(); j++) {
+                if (allchoices.get(i).topics.contains(PubsDuty.get(j))) {
+                    try {
+                        requestSocket = new Socket(InetAddress.getByName("localhost"), allchoices.get(i).port);
+                        ObjectOutputStream out = new ObjectOutputStream(requestSocket.getOutputStream());
+                        // in=new ObjectInputStream(requestSocket.getInputStream());
+                        PubHandler ph = new PubHandler(requestSocket, out, allchoices.get(i).port);
+                        ph.start();
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Error");
                     }
                 }
             }
         }
+        // Socket requestSocket;
+//
+        //  while (true) {
+        //      for (int i = 0; i < busPositions.size(); i++) {
+        //          for (int j = 0; j < PubsDuty.size(); j++) {
+        //              if (busLines.get(PubsDuty.get(j)).equals(busPositions.get(i).getbusline())) {
+        //                  try {
+        //                      requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
+        //                      out = new ObjectOutputStream(requestSocket.getOutputStream());
+        //                      out.writeObject(new Message(1, PubsDuty.get(j), busPositions.get(i).getbusline() + " - " + busPositions.get(i).getData()));
+        //                      out.flush();
+        //                  } catch (Exception e) {
+        //                      System.out.println("Publisher couldn't connect with Server. Retrying...");
+        //                      Thread.sleep(2000);
+        //                      continue;
+        //                  }
+        //              }
+        //          }
+        //      }
+        //  }
     }
 
     public static void init(int i) {
@@ -83,7 +100,7 @@ public class Publisher {
         System.out.println("Which Publisher is it (1 or 2)");
         Scanner in = new Scanner(System.in);
         int choice = in.nextInt();
-        portid = i;
+        portid = i + choice - 1;
         int flag = 0;
         if (choice == 1) {
             for (String key : busLines.keySet()) {

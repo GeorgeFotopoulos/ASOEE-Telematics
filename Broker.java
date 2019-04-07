@@ -30,7 +30,7 @@ public class Broker {
         int choice = in.nextInt();
         init(10240 + (choice - 1));
         calculateKeys(10240 + (choice - 1));
-        new Broker().acceptConnections();
+        acceptConnections();
     }
 
     public static void init(int i) {
