@@ -3,14 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="84b25d48-9776-48a1-923e-d0f8df1bd568" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Broker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Broker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PubHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/PubHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/Publisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Subscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/Subscriber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Topic.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Value.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DS-Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DS-Project/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,12 +23,47 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Skeleton.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Broker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-609">
+              <caret line="15" column="23" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/PubHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Publisher.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="68" column="39" selection-start-line="68" selection-start-column="39" selection-end-line="68" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ClientHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+            <state relative-caret-position="387">
+              <caret line="42" column="36" lean-forward="true" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,62 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Subscriber.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="83" column="56" selection-start-line="83" selection-start-column="44" selection-end-line="83" selection-end-column="56" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Publisher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="152" column="63" selection-start-line="152" selection-start-column="54" selection-end-line="152" selection-end-column="63" />
-              <folding>
-                <element signature="method#main#0;class#Publisher#0" />
-                <element signature="method#getBrokerList#0;class#Publisher#0" />
-                <element signature="method#push#0;class#Publisher#0" />
-                <element signature="method#startClient#0;class#Publisher#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Broker.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="926">
-              <caret line="133" selection-start-line="133" selection-end-line="133" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/PubHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="29" column="65" lean-forward="true" selection-start-line="29" selection-start-column="65" selection-end-line="29" selection-end-column="65" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Message.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FileReaders.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="55" column="56" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
+            <state relative-caret-position="2163">
+              <caret line="112" lean-forward="true" selection-start-line="112" selection-end-line="112" />
             </state>
           </provider>
         </entry>
@@ -132,9 +107,12 @@
       <find>37.94329 23.684911</find>
       <find>37.981431 23.730141</find>
       <find>37.952906</find>
-      <find>sl</find>
       <find>sle</find>
       <find>slee</find>
+      <find>sl</find>
+      <find>paok</find>
+      <find>couldn</find>
+      <find>leak</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -146,10 +124,11 @@
         <option value="$PROJECT_DIR$/Message.java" />
         <option value="$PROJECT_DIR$/FileReaders.java" />
         <option value="$PROJECT_DIR$/Brokers.txt" />
+        <option value="$PROJECT_DIR$/Subscriber.java" />
         <option value="$PROJECT_DIR$/Broker.java" />
         <option value="$PROJECT_DIR$/Publisher.java" />
-        <option value="$PROJECT_DIR$/Subscriber.java" />
         <option value="$PROJECT_DIR$/ClientHandler.java" />
+        <option value="$PROJECT_DIR$/Value.java" />
         <option value="$PROJECT_DIR$/PubHandler.java" />
       </list>
     </option>
@@ -182,6 +161,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
   </component>
   <component name="RunDashboard">
@@ -319,21 +302,7 @@
       <option name="project" value="LOCAL" />
       <updated>1554724527707</updated>
     </task>
-    <task id="LOCAL-00012" summary="6/4/2019 changes to Broker Pub Sub by Pat">
-      <created>1554737660119</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1554737660119</updated>
-    </task>
-    <task id="LOCAL-00013" summary="6/4/2019 changes to Broker Pub Sub by Pat">
-      <created>1554743269400</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1554743269400</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -347,26 +316,26 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49803922" visible="true" weight="0.08848614" />
-      <window_info id="Structure" order="1" sideWeight="0.5019608" side_tool="true" visible="true" weight="0.08848614" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4994401" visible="true" weight="0.13166311" />
+      <window_info id="Structure" order="1" sideWeight="0.5005599" side_tool="true" weight="0.08848614" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4989339" visible="true" weight="0.44745395" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5090618" weight="0.2524377" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49946696" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5010661" side_tool="true" weight="0.2524377" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.49093816" side_tool="true" weight="0.2524377" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32936078" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49946696" weight="0.32936078" />
-      <window_info anchor="right" id="Coverage" side_tool="true" weight="0.32995737" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -375,6 +344,7 @@
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.32995737" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4985507" visible="true" weight="0.08848614" />
@@ -414,20 +384,7 @@
     <SUITE FILE_PATH="coverage/DS_Project$Publisher.ic" NAME="Publisher Coverage Results" MODIFIED="1554673334207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/io/ObjectInputStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2232">
-          <caret line="936" column="16" selection-start-line="936" selection-start-column="16" selection-end-line="936" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/io/ObjectInputStream.java" />
     <entry file="file://$PROJECT_DIR$/busLinesNew.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -459,30 +416,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Broker.java">
+    <entry file="file://$PROJECT_DIR$/Skeleton.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bus.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="926">
-          <caret line="133" selection-start-line="133" selection-end-line="133" />
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Topic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Value.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <folding>
+            <element signature="e#368#369#0" expanded="true" />
+            <element signature="e#421#422#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Publisher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="152" column="63" selection-start-line="152" selection-start-column="54" selection-end-line="152" selection-end-column="63" />
-          <folding>
-            <element signature="method#main#0;class#Publisher#0" />
-            <element signature="method#getBrokerList#0;class#Publisher#0" />
-            <element signature="method#push#0;class#Publisher#0" />
-            <element signature="method#startClient#0;class#Publisher#0" />
-          </folding>
+        <state relative-caret-position="420">
+          <caret line="68" column="39" selection-start-line="68" selection-start-column="39" selection-end-line="68" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Broker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-609">
+          <caret line="15" column="23" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ClientHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+        <state relative-caret-position="387">
+          <caret line="42" column="36" lean-forward="true" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -491,15 +470,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Subscriber.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="83" column="56" selection-start-line="83" selection-start-column="44" selection-end-line="83" selection-end-column="56" />
+        <state relative-caret-position="2163">
+          <caret line="112" lean-forward="true" selection-start-line="112" selection-end-line="112" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PubHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="29" column="65" lean-forward="true" selection-start-line="29" selection-start-column="65" selection-end-line="29" selection-end-column="65" />
+        <state relative-caret-position="273">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
