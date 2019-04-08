@@ -14,10 +14,10 @@ public class Subscriber {
     static Socket subSocket;
     static ObjectOutputStream out;
     static ObjectInputStream in;
-    //Message current = new Message("", "asdasd ", "asda");
+    static String choice;
 
     public static void main(String[] args) {
-        NotifyClient();
+        notifyClient();
         Scanner input = new Scanner(System.in);
         System.out.println("Choose one of the following bus lines to get its position information: ");
         HashMap<String, String> Buslines = FileReaders.readBusLines(new File("busLinesNew.txt"));
@@ -25,12 +25,21 @@ public class Subscriber {
             System.out.print(key + " ");
         }
         System.out.println();
-        String choice = input.next();
-        //System.out.println(choice);
+        choice = input.next();
         getInfo(choice);
     }
 
-    public static void NotifyClient() {
+    /**
+     * In this method, we set up the socket, input and output streams which will be used during the
+     * communication between the Subscriber and the Brokers.
+     *
+     * At first the Subscriber opens communication with the first Broker and gets all the information
+     * regarding that Broker.
+     *
+     * After that is done, the Subscriber opens new sockets, input and output streams and begins communicating
+     * with the rest of the Brokers to get all the information about which buses they are responsible for.
+     */
+    public static void notifyClient() {
         try {
             subSocket = new Socket(InetAddress.getByName("localhost"), 10256);
             out = new ObjectOutputStream(subSocket.getOutputStream());
@@ -51,24 +60,42 @@ public class Subscriber {
                 subSocket.close();
             }
             for (String key : TopicsAndPorts.keySet()) {
-                System.out.println(key + " " + TopicsAndPorts.get(key));
+                System.out.println("Broker[" + key + "]: " + TopicsAndPorts.get(key));
             }
-            subSocket.close();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                in.close();
+                out.close();
+                subSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
+    /**
+     * This method gets the client's choice of bus and then finds which Broker is responsible for
+     * this particular bus.
+     *
+     * If the subscriber's choice belongs to some Broker, then a new socket, input and output stream are
+     * created and through them starts the communication between the Broker and the Subscriber which
+     * leads to the Subscriber getting all the information related to that particular bus's position.
+     *
+     * If there is no such bus, then the client is informed and is asked to choose all over again.
+     *
+     * @param choice Subscriber's choice of bus, for which he wants to get information
+     */
     public static void getInfo(String choice) {
         int brokerPort = 0;
         for (String keys : TopicsAndPorts.keySet()) {
             if (TopicsAndPorts.get(keys).contains(choice)) {
                 brokerPort = Integer.parseInt(keys);
-                //System.out.println(brokerPort);
                 break;
             }
         }
@@ -79,13 +106,11 @@ public class Subscriber {
                 in = new ObjectInputStream(subSocket.getInputStream());
                 out.writeObject(new Message("InfoToSub", choice, ""));
                 while (true) {
-                    //System.out.println();
                     Message info = (Message) in.readObject();
                     System.out.println(info);
                 }
             } else {
-                System.out.println("There is no Bus with this code: " + choice);
-                //System.out.println();
+                System.out.println("There is no Bus with code " + choice);
                 Subscriber.main(null);
             }
         } catch (IOException e) {

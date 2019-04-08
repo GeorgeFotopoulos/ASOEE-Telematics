@@ -14,13 +14,13 @@ public class Broker {
     //static List<Broker> brokers;
     //static List<Subscriber> registeredSubscribers;
     //static List<Publisher> registeredPublishers;
-    static boolean leak = false;
     static HashMap<String, String> HM = new HashMap<>();
-    static ArrayList<String> Topics = new ArrayList<>();
-    static int portid;
-    static String myIP;
-    static ServerSocket providerSocket = null;
     static HashMap<String, String> IPPORT;
+    static ArrayList<String> Topics = new ArrayList<>();
+    static ServerSocket providerSocket = null;
+    static String myIP;
+    static boolean leak = false;
+    static int portid;
 
     public static void main(String[] args) {
         System.out.println("Which broker is this? Type 1 for first, 2 for second & 3 for third: ");
@@ -31,6 +31,12 @@ public class Broker {
         acceptConnections();
     }
 
+    /**
+     * In this method we initialize a new Broker object, whose PORT is given as a parameter.
+     * Along with the object, we also create a communication socket per Broker using his port.
+     *
+     * @param i Indicates the Broker's PORT number.
+     */
     public static void init(int i) {
         Broker.portid = i;
         try {
@@ -40,6 +46,9 @@ public class Broker {
         }
     }
 
+    /**
+     *
+     */
     public static void acceptConnections() {
         System.out.println("Broker with port " + portid + " is opening...");
         while (true) {
@@ -58,6 +67,15 @@ public class Broker {
         }
     }
 
+    /**
+     * This method hashes a particular Broker's IP+PORT, plus all the bus line IDs using
+     * the MD5 algorithm.
+     *
+     * It also assigns buses whose hash digest is lower than a Broker's IP+PORT hash to that
+     * particular Broker.
+     *
+     * @param portid This is the PORT number of the Broker whose IP+PORT we want to hash.
+     */
     public static void calculateKeys(int portid) {
         HashMap<String, String> Buslines = FileReaders.readBusLines(new File("busLinesNew.txt"));
         IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
@@ -88,6 +106,11 @@ public class Broker {
         IPPORT.remove(portid + "");
     }
 
+    /**
+     * This method is used to notify others of which buses a particular Broker is responsible for.
+     *
+     * @param port This is the PORT of the Broker for whom we want to show information.
+     */
     public static synchronized void notify(int port) {
         //System.out.println("TEST" + portid);
         ObjectOutputStream out;

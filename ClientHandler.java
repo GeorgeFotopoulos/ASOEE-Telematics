@@ -9,6 +9,11 @@ class ClientHandler extends Thread {
     ObjectOutputStream out;
     final Socket s;
 
+    /**
+     * @param s   Socket used for the communication.
+     * @param in  Input stream used for the communication.
+     * @param out Output stream used for the communication.
+     */
     public ClientHandler(Socket s, ObjectInputStream in, ObjectOutputStream out) {
         this.s = s;
         this.in = in;
@@ -17,10 +22,10 @@ class ClientHandler extends Thread {
 
     @Override
     public void run() {
-        //String toreturn;
         Message received = null;
-        String temp;
         Message toSend;
+        String temp;
+        ObjectOutputStream output;
 
         try {
             received = (Message) in.readObject();
@@ -71,9 +76,9 @@ class ClientHandler extends Thread {
                     for (String key : Broker.IPPORT.keySet()) {
                         try {
                             Socket innercontact = new Socket(InetAddress.getByName("localhost"), Integer.parseInt(key));
-                            ObjectOutputStream dos = new ObjectOutputStream(innercontact.getOutputStream());
-                            dos.writeObject(new Message("InnerBrokerCom", received.data, " Should send the topics to this port"));
-                            dos.flush();
+                            output = new ObjectOutputStream(innercontact.getOutputStream());
+                            output.writeObject(new Message("InnerBrokerCom", received.data, " Should send the topics to this port"));
+                            output.flush();
                         } catch (Exception e) {
                         }
                     }
@@ -88,9 +93,8 @@ class ClientHandler extends Thread {
         }
 
         try {
-            this.in.close();
-            this.out.close();
-
+            in.close();
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
