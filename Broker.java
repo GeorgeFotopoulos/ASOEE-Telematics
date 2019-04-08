@@ -17,7 +17,7 @@ public class Broker {
     static List<Broker> brokers;
     static List<Subscriber> registeredSubscribers;
     static List<Publisher> registeredPublishers;
-    static HashMap<String, String> HM=new HashMap<>();
+    static HashMap<String, String> HM = new HashMap<>();
     static ArrayList<String> Topics = new ArrayList<>();
     static int portid;
     static String myIP;
@@ -28,8 +28,8 @@ public class Broker {
         System.out.println("Which broker is this?Give 1 for first 2 for second 3 for third");
         Scanner in = new Scanner(System.in);
         int choice = in.nextInt();
-        init(10240 + (choice - 1));
-        calculateKeys(10240 + (choice - 1));
+        init(10256 + (choice - 1));
+        calculateKeys(10256 + (choice - 1));
         acceptConnections();
     }
 
@@ -48,10 +48,10 @@ public class Broker {
             Socket connection;
             try {
                 connection = providerSocket.accept();
-               // System.out.println("New Connection");
+                System.out.println("New Connection");
                 ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
-
+                System.out.println("pasda");
                 Thread t = new ClientHandler(connection, in, out);
 
                 // Invoking the start() method
@@ -66,12 +66,13 @@ public class Broker {
                 // }
 
 
-            } catch (Exception e) {
-                System.err.println("paok");
-                continue;
+            } catch (IOException e) {
+                e.printStackTrace();
+
             }
         }
     }
+
 
     public static void calculateKeys(int portid) {
         HashMap<String, String> Buslines = FileReaders.readBusLines(new File("busLinesNew.txt"));
@@ -99,6 +100,7 @@ public class Broker {
                 }
             }
         }
+        System.out.println(Topics);
         IPPORT.remove(portid + "");
     }
 

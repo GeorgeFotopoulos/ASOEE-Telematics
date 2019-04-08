@@ -1,31 +1,45 @@
+import java.io.File;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Subscriber {
 
     public static void main(String[] args) throws InterruptedException {
-        new Subscriber().startClient();
+        NotifyClient();
+        Scanner in = new Scanner(System.in);
+        System.out.println("Choose one of the following Lines you want to get Info");
+        HashMap<String, String> Buslines = FileReaders.readBusLines(new File("busLinesNew.txt"));
+        for (String key : Buslines.keySet())
+            System.out.print(key + "   ");
+        System.out.println();
+        String choice = in.next();
+        System.out.println(choice);
+        getInfo(choice);
     }
 
     Message current = new Message("", "asdasd ", "asda");
 
-    public void startClient() throws InterruptedException {
+    public static void NotifyClient() throws InterruptedException {
         HashMap<String, ArrayList<String>> TopicsAndPorts = new HashMap<>();
         Socket subSocket;
         ObjectOutputStream out;
         ObjectInputStream in;
         try {
-            subSocket = new Socket(InetAddress.getByName("localhost"), 10240);
+            subSocket = new Socket(InetAddress.getByName("localhost"), 10256);
             out = new ObjectOutputStream(subSocket.getOutputStream());
-            in = new ObjectInputStream(subSocket.getInputStream());
             out.writeObject(new Message("NotifySub", "", ""));
             out.flush();
+            in = new ObjectInputStream(subSocket.getInputStream());
             Message temp = (Message) in.readObject();
             TopicsAndPorts.put(10240 + "", temp.topics);
+            subSocket.close();
             for (String key : temp.ports.keySet()) {
                 subSocket = new Socket(InetAddress.getByName("localhost"), Integer.parseInt(key));
                 out = new ObjectOutputStream(subSocket.getOutputStream());
@@ -34,29 +48,21 @@ public class Subscriber {
                 out.flush();
                 Message info = (Message) in.readObject();
                 TopicsAndPorts.put(key, info.topics);
+                subSocket.close();
             }
-
-        } catch (Exception e) {
-            System.out.println("PAOKIAS");
+            for (String key : TopicsAndPorts.keySet()) {
+                System.out.println(key + " " + TopicsAndPorts.get(key));
+            }
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        //  while (true) {
-        //      try {
-        //          subSocket = new Socket(InetAddress.getByName("localhost"), 10240);
-        //          out = new ObjectOutputStream(subSocket.getOutputStream());
-        //          in = new ObjectInputStream(subSocket.getInputStream());
-        //          out.writeObject(new Message("", "035", " sub inquiry"));
-        //          out.flush();
-        //          Message temp = (Message) in.readObject();
-        //          if (!current.data.equals(temp.data)) {
-        //              current.data = temp.data;
-        //              System.out.println(temp);
-        //          }
-        //      } catch (Exception e) {
-        //          System.out.println("Connection with server is not ready yet ");
-        //          Thread.sleep(2000);
-        //          continue;
-        //      }
-        //  }
+    }
+
+    public static void getInfo(String choice) {
 
     }
 
