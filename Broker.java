@@ -131,12 +131,7 @@ public class Broker {
         return subscriber;
     }
 
-    public void pull(Topic topic) {
-        Value Message;
-        for (Subscriber subs : registeredSubscribers) {
-            Message = HM.get(topic);
-        }
-    }
+
 
     public void connect() {
     }

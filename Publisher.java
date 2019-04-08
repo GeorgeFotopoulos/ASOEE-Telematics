@@ -159,11 +159,7 @@ public class Publisher {
     }
     /*
 
-    public Broker hashTopic(Topic topic) {
-    }
 
-    public void push(Topic topic, Value value) {
-    }
 
     public void notifyFailure(Broker broker) {
     }

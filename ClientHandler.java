@@ -35,11 +35,10 @@ class ClientHandler extends Thread {
                     while (true) {
                         received = (Message) dis.readObject();
                         Broker.HM.put(received.busline, received.data);
-                        System.out.println("busline : " + received.busline + " data: " + received.data + " Broker" + Broker.portid);
                     }
                 } else if (received.getPubSub().equals("InfoToSub")) {
                     if(Broker.leak){
-                        dos.writeObject(new Message("Failure to Sub","Due to a problem we couldn't gather info for some BusLines",""));
+                        dos.writeObject(new Message("Failure to Sub","Error 404: Data not Found","Due to a problem we couldn't gather info for some BusLines"));
                         dos.flush();
                     }
                     String Temp = "";

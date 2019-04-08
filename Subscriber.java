@@ -106,20 +106,6 @@ public class Subscriber {
 
     /*
 
-    public void register(Broker broker, Topic topic) {
-        broker.acceptConnection(this);
-        broker.HM.get(topic);
-    }
-
-    public void disconnect(Broker broker, Topic topic) {
-        broker.registeredSubscribers.remove(topic);
-    }
-
-    public void visualiseData(Topic topic, Value value) {
-    }
-
-    public static void init(int i) {
-    }
 
     public void connect() {
     }

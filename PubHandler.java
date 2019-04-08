@@ -28,6 +28,7 @@ class PubHandler extends Thread {
                                     Message msg=(new Message("FromHandlerToPush",Publisher.allchoices.get(i).topics.get(x),Publisher.busPositions.get(j).data));
                                     try {
                                         Publisher.push(dos, msg);
+                                        //throw(new NullPointerException());
                                     }
                                     catch(Exception e){
                                         Publisher.notifyFailure(dos);
