@@ -35,25 +35,29 @@ class ClientHandler extends Thread
         while (true)
         {
             try {
-                if(received.getPubSub() == 1){
+                if(received.getPubSub().equals("BusInfoByPub")){
                     while(true){
                         received = (Message) dis.readObject();
                         Broker.HM.put(received.busline,received.data);
                         System.out.println("busline : "+ received.busline+" data: "+received.data+" Broker"+Broker.portid);
                     }
-                } else if (received.getPubSub() == 3) {
+                } else if (received.getPubSub().equals("InnerBrokerCom")) {
                    // System.out.println("PHRE KWDIKO 3");
                    // System.out.println(received.busline);
                     Broker.notify(Integer.parseInt(received.busline));
                     break;
-                } else if (received.getPubSub() == 4) {
+                }else if (received.getPubSub().equals("NotifySub")) {
+                    ObjectOutputStream dis = new ObjectOutputStream(s.getOutputStream());
+                    dis.writeObject(new Message( Broker.Topics, Broker.IPPORT));
+                    dis.flush();
+                }else if (received.getPubSub().equals("NotifyPub")) {
                    // System.out.println(received);
                    // System.out.println("TYPOU 4");
                     for (String key : Broker.IPPORT.keySet()) {
                         try {
                             Socket innercontact = new Socket(InetAddress.getByName("localhost"), Integer.parseInt(key));
                             ObjectOutputStream dis = new ObjectOutputStream(innercontact.getOutputStream());
-                            dis.writeObject(new Message(3, received.data, " Should send the topics to this port"));
+                            dis.writeObject(new Message("InnerBrokerCom", received.data, " Should send the topics to this port"));
                             dis.flush();
                         } catch (Exception e) {
                         }
@@ -72,11 +76,8 @@ class ClientHandler extends Thread
                 // receive the answer from client 
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
-                break;
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+               continue;
             }
         }
 
