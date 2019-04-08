@@ -33,7 +33,6 @@ public class Publisher {
             out = new ObjectOutputStream(requestSocket.getOutputStream());
             out.writeObject(new Message("NotifyPub", "Give to the publisher all the info ", portid + ""));
             out.flush();
-            Thread.sleep(50);
         } catch (Exception e) {
 
         }

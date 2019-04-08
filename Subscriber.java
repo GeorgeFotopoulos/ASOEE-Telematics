@@ -12,7 +12,9 @@ import java.util.Scanner;
 public class Subscriber {
 
     static HashMap<String, ArrayList<String>> TopicsAndPorts = new HashMap<>();
-
+    static Socket subSocket;
+    static ObjectOutputStream out;
+    static ObjectInputStream in;
     public static void main(String[] args) throws InterruptedException {
         NotifyClient();
         Scanner in = new Scanner(System.in);
@@ -29,9 +31,8 @@ public class Subscriber {
     Message current = new Message("", "asdasd ", "asda");
 
     public static void NotifyClient() {
-        Socket subSocket;
-        ObjectOutputStream out;
-        ObjectInputStream in;
+
+
         try {
             subSocket = new Socket(InetAddress.getByName("localhost"), 10256);
             out = new ObjectOutputStream(subSocket.getOutputStream());
@@ -39,7 +40,7 @@ public class Subscriber {
             out.flush();
             in = new ObjectInputStream(subSocket.getInputStream());
             Message temp = (Message) in.readObject();
-            TopicsAndPorts.put(10240 + "", temp.topics);
+            TopicsAndPorts.put(10256 + "", temp.topics);
             subSocket.close();
             for (String key : temp.ports.keySet()) {
                 subSocket = new Socket(InetAddress.getByName("localhost"), Integer.parseInt(key));
@@ -53,7 +54,9 @@ public class Subscriber {
             }
             for (String key : TopicsAndPorts.keySet()) {
                 System.out.println(key + " " + TopicsAndPorts.get(key));
+
             }
+            subSocket.close();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -64,12 +67,30 @@ public class Subscriber {
     }
 
     public static void getInfo(String choice) {
-        int brokerPort;
+        int brokerPort=0;
         for(String keys : TopicsAndPorts.keySet()){
             if(TopicsAndPorts.get(keys).contains(choice)) {
                 brokerPort = Integer.parseInt(keys);
+                System.out.println(brokerPort);
+                break;
             }
         }
+        try {
+            subSocket = new Socket(InetAddress.getByName("localhost"), brokerPort);
+            out = new ObjectOutputStream(subSocket.getOutputStream());
+            in= new ObjectInputStream(subSocket.getInputStream());
+            out.writeObject(new Message("InfoToSub", choice, ""));
+            while(true){
+                System.out.println("paokas");
+                Message info = (Message) in.readObject();
+                System.out.println(info);
+        }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /*

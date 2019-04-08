@@ -56,6 +56,7 @@ public class Broker {
 
                 // Invoking the start() method
                 t.start();
+                //t.join();
                 // System.out.println(temp.data);
                 // if(temp.getPubSub() == 1){
                 //     while(true){
