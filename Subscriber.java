@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 public class Subscriber {
 
+    static HashMap<String, ArrayList<String>> TopicsAndPorts = new HashMap<>();
+
     public static void main(String[] args) throws InterruptedException {
         NotifyClient();
         Scanner in = new Scanner(System.in);
@@ -26,8 +28,7 @@ public class Subscriber {
 
     Message current = new Message("", "asdasd ", "asda");
 
-    public static void NotifyClient() throws InterruptedException {
-        HashMap<String, ArrayList<String>> TopicsAndPorts = new HashMap<>();
+    public static void NotifyClient() {
         Socket subSocket;
         ObjectOutputStream out;
         ObjectInputStream in;
@@ -63,7 +64,12 @@ public class Subscriber {
     }
 
     public static void getInfo(String choice) {
-
+        int brokerPort;
+        for(String keys : TopicsAndPorts.keySet()){
+            if(TopicsAndPorts.get(keys).contains(choice)) {
+                brokerPort = Integer.parseInt(keys);
+            }
+        }
     }
 
     /*
