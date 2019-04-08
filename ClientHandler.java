@@ -38,6 +38,10 @@ class ClientHandler extends Thread {
                         System.out.println("busline : " + received.busline + " data: " + received.data + " Broker" + Broker.portid);
                     }
                 } else if (received.getPubSub().equals("InfoToSub")) {
+                    if(Broker.leak){
+                        dos.writeObject(new Message("Failure to Sub","Due to a problem we couldn't gather info for some BusLines",""));
+                        dos.flush();
+                    }
                     String Temp = "";
                     Message toSend;
                     while (true) {
@@ -56,6 +60,8 @@ class ClientHandler extends Thread {
                     // System.out.println(received.busline);
                     Broker.notify(Integer.parseInt(received.busline));
                     break;
+                } else if (received.getPubSub().equals("Failure")) {
+                    Broker.leak=true;
                 } else if (received.getPubSub().equals("NotifySub")) {
                     System.out.println("Mpike sto NotifySub");
                     Message toSend = new Message(Broker.Topics, Broker.IPPORT);

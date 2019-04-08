@@ -145,8 +145,18 @@ public class Publisher {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
+    public static void notifyFailure(ObjectOutputStream out) {
+        try {
+            out.writeObject(new Message("Failure", "A publisher couldn't pass all the info",""));
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     /*
 
     public Broker hashTopic(Topic topic) {

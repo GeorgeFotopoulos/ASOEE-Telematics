@@ -15,6 +15,7 @@ public class Subscriber {
     static Socket subSocket;
     static ObjectOutputStream out;
     static ObjectInputStream in;
+
     public static void main(String[] args) throws InterruptedException {
         NotifyClient();
         Scanner in = new Scanner(System.in);
@@ -67,27 +68,37 @@ public class Subscriber {
     }
 
     public static void getInfo(String choice) {
-        int brokerPort=0;
-        for(String keys : TopicsAndPorts.keySet()){
-            if(TopicsAndPorts.get(keys).contains(choice)) {
+        int brokerPort = 0;
+        for (String keys : TopicsAndPorts.keySet()) {
+            if (TopicsAndPorts.get(keys).contains(choice)) {
                 brokerPort = Integer.parseInt(keys);
                 System.out.println(brokerPort);
                 break;
             }
         }
         try {
-            subSocket = new Socket(InetAddress.getByName("localhost"), brokerPort);
-            out = new ObjectOutputStream(subSocket.getOutputStream());
-            in= new ObjectInputStream(subSocket.getInputStream());
-            out.writeObject(new Message("InfoToSub", choice, ""));
-            while(true){
-                System.out.println("paokas");
-                Message info = (Message) in.readObject();
-                System.out.println(info);
-        }
+            if(brokerPort!=0) {
+                subSocket = new Socket(InetAddress.getByName("localhost"), brokerPort);
+                out = new ObjectOutputStream(subSocket.getOutputStream());
+                in = new ObjectInputStream(subSocket.getInputStream());
+                out.writeObject(new Message("InfoToSub", choice, ""));
+                while (true) {
+                    System.out.println();
+                    Message info = (Message) in.readObject();
+                    System.out.println(info);
+                }
+            }
+            else{
+                System.out.println("There is no Bus with this code: "+choice);
+                System.out.println();
+                System.out.println();
+                Subscriber.main(null);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

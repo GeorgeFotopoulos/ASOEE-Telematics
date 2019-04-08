@@ -13,7 +13,7 @@ import java.util.*;
 */
 
 public class Broker {
-
+    static boolean leak=false;
     static List<Broker> brokers;
     static List<Subscriber> registeredSubscribers;
     static List<Publisher> registeredPublishers;
