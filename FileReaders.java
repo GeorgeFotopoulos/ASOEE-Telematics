@@ -7,7 +7,11 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class FileReaders {
-
+    /**
+     * This method reads a file and stores some of its contents (lineID, lineCode) in a Hash Map.
+     * @param fileName File used as an input to read from.
+     * @return A Hash Map containing LineID & LineCode.
+     */
     public static HashMap<String, String> readBusLines(File fileName) {
         HashMap<String, String> busLines = new HashMap<>();
         BufferedReader br = null;
@@ -35,8 +39,11 @@ public class FileReaders {
         return busLines;
     }
 
-    //public static void readRouteCodes(File fileName) {}
-
+    /**
+     * This method reads a file and stores some of its contents (lineCode, latitude, longitude) in an Array List.
+     * @param fileName File used as an input to read from
+     * @return An Array List containing LineCode & Latitude-Longitude.
+     */
     public static ArrayList<Message> readBusPositions(File fileName) {
         ArrayList<Message> busPositions = new ArrayList<>();
         BufferedReader br = null;
@@ -53,7 +60,7 @@ public class FileReaders {
                 st.nextToken();
                 latitude = st.nextToken();
                 longitude = st.nextToken();
-                busPositions.add(new Message("NoTopicMsg", lineCode, latitude + " " + longitude));
+                busPositions.add(new Message("NoTopicMsg", lineCode, latitude + ", " + longitude));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,11 +68,10 @@ public class FileReaders {
             try {
                 if (br != null) br.close();
                 if (fr != null) fr.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return busPositions;
     }
-
 }

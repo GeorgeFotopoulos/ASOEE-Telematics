@@ -10,17 +10,17 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Publisher {
-    static ArrayList<String> PubsDuty = new ArrayList<>();
-    static ServerSocket InfoTaker = null;
     private static int portid;
+    static ServerSocket InfoTaker = null;
     static ArrayList<Message> allchoices = new ArrayList<>();
-    static HashMap<String, String> busLines = new HashMap<>();
+    static ArrayList<String> PubsDuty = new ArrayList<>();
     static ArrayList<Message> busPositions = new ArrayList<>();
+    static HashMap<String, String> busLines = new HashMap<>();
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
         init(14111);
-        System.out.println(portid);
+        //System.out.println(portid);
         getBrokerList();
         new Publisher().startClient();
     }
@@ -34,28 +34,25 @@ public class Publisher {
             out.writeObject(new Message("NotifyPub", "Give to the publisher all the info ", portid + ""));
             out.flush();
         } catch (Exception e) {
-
         }
         Socket s;
         int i = 0;
         while (true) {
             try {
-
                 s = InfoTaker.accept();
-
-                ObjectInputStream input = new ObjectInputStream(s.getInputStream());
-                Message temp = (Message) input.readObject();
+                ObjectInputStream in = new ObjectInputStream(s.getInputStream());
+                Message temp = (Message) in.readObject();
                 Message info = new Message(temp.topics, temp.port);
                 allchoices.add(info);
-                System.out.println(temp.topics);
+                System.out.println("Broker[" + temp.port + "]: " + temp.topics);
                 i++;
-                System.out.println("paoapapapap");
+                //System.out.println("paoapapapap");
                 if (i == 3) {
-                    input.close();
+                    in.close();
                     break;
                 }
             } catch (Exception e) {
-                System.err.println("ERROR!");
+                //System.err.println("ERROR!");
                 continue;
             }
         }
@@ -70,7 +67,7 @@ public class Publisher {
         }
     }
 
-    public void startClient() throws InterruptedException {
+    public void startClient() {
         Socket requestSocket;
         for (int i = 0; i < allchoices.size(); i++) {
             for (int j = 0; j < PubsDuty.size(); j++) {
@@ -80,7 +77,6 @@ public class Publisher {
                         ObjectOutputStream out = new ObjectOutputStream(requestSocket.getOutputStream());
                         // in=new ObjectInputStream(requestSocket.getInputStream());
                         PubHandler ph = new PubHandler(requestSocket, out, allchoices.get(i).port);
-
                         ph.start();
                         out.flush();
                         break;
@@ -90,54 +86,52 @@ public class Publisher {
                 }
             }
         }
-        // Socket requestSocket;
-//
-        //  while (true) {
-        //      for (int i = 0; i < busPositions.size(); i++) {
-        //          for (int j = 0; j < PubsDuty.size(); j++) {
-        //              if (busLines.get(PubsDuty.get(j)).equals(busPositions.get(i).getbusline())) {
-        //                  try {
-        //                      requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
-        //                      out = new ObjectOutputStream(requestSocket.getOutputStream());
-        //                      out.writeObject(new Message(1, PubsDuty.get(j), busPositions.get(i).getbusline() + " - " + busPositions.get(i).getData()));
-        //                      out.flush();
-        //                  } catch (Exception e) {
-        //                      System.out.println("Publisher couldn't connect with Server. Retrying...");
-        //                      Thread.sleep(2000);
-        //                      continue;
-        //                  }
-        //              }
-        //          }
-        //      }
-        //  }
     }
+//  Socket requestSocket;
+//
+//  while (true) {
+//      for (int i = 0; i < busPositions.size(); i++) {
+//          for (int j = 0; j < PubsDuty.size(); j++) {
+//              if (busLines.get(PubsDuty.get(j)).equals(busPositions.get(i).getbusline())) {
+//                  try {
+//                      requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
+//                      out = new ObjectOutputStream(requestSocket.getOutputStream());
+//                      out.writeObject(new Message(1, PubsDuty.get(j), busPositions.get(i).getbusline() + " - " + busPositions.get(i).getData()));
+//                      out.flush();
+//                  } catch (Exception e) {
+//                      System.out.println("Publisher couldn't connect with Server. Retrying...");
+//                      Thread.sleep(2000);
+//                      continue;
+//                  }
+//              }
+//          }
+//      }
+//  }
 
     public static void init(int i) {
-
         busLines = FileReaders.readBusLines(new File("busLinesNew.txt"));
-        System.out.println("Which Publisher is it (1 or 2)");
-        Scanner in = new Scanner(System.in);
-        int choice = in.nextInt();
+        System.out.println("Which publisher is this? Type 1 for first & 2 for second: ");
+        Scanner input = new Scanner(System.in);
+        int choice = input.nextInt();
         portid = i + choice - 1;
         int flag = 0;
         if (choice == 1) {
             for (String key : busLines.keySet()) {
                 PubsDuty.add(key);
                 flag++;
-                if (flag == (int) (busLines.size() / 2)) {
+                if (flag == busLines.size() / 2) {
                     break;
                 }
             }
-            System.out.println(PubsDuty);
+            System.out.println("Publisher_1[" + portid +"]: " + PubsDuty);
         } else {
             for (String key : busLines.keySet()) {
                 flag++;
-                if (flag > (int) (busLines.size() / 2)) {
+                if (flag > busLines.size() / 2) {
                     PubsDuty.add(key);
-
                 }
             }
-            System.out.println(PubsDuty);
+            System.out.println("Publisher_2[" + portid +"]: " + PubsDuty);
         }
 
         try {
@@ -145,31 +139,15 @@ public class Publisher {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void notifyFailure(ObjectOutputStream out) {
         try {
-            out.writeObject(new Message("Failure", "A publisher couldn't pass all the info",""));
+            out.writeObject(new Message("Failure", "A publisher couldn't pass all the info", ""));
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-    /*
-
-
-
-    public void notifyFailure(Broker broker) {
-    }
-
-    public void connect() {
-    }
-
-    public void disconnect() {
-    }
-
-     */
 
 }

@@ -10,30 +10,27 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Subscriber {
-
     static HashMap<String, ArrayList<String>> TopicsAndPorts = new HashMap<>();
     static Socket subSocket;
     static ObjectOutputStream out;
     static ObjectInputStream in;
+    //Message current = new Message("", "asdasd ", "asda");
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         NotifyClient();
-        Scanner in = new Scanner(System.in);
-        System.out.println("Choose one of the following Lines you want to get Info");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Choose one of the following bus lines to get its position information: ");
         HashMap<String, String> Buslines = FileReaders.readBusLines(new File("busLinesNew.txt"));
-        for (String key : Buslines.keySet())
-            System.out.print(key + "   ");
+        for (String key : Buslines.keySet()) {
+            System.out.print(key + " ");
+        }
         System.out.println();
-        String choice = in.next();
-        System.out.println(choice);
+        String choice = input.next();
+        //System.out.println(choice);
         getInfo(choice);
     }
 
-    Message current = new Message("", "asdasd ", "asda");
-
     public static void NotifyClient() {
-
-
         try {
             subSocket = new Socket(InetAddress.getByName("localhost"), 10256);
             out = new ObjectOutputStream(subSocket.getOutputStream());
@@ -55,7 +52,6 @@ public class Subscriber {
             }
             for (String key : TopicsAndPorts.keySet()) {
                 System.out.println(key + " " + TopicsAndPorts.get(key));
-
             }
             subSocket.close();
         } catch (UnknownHostException e) {
@@ -72,46 +68,30 @@ public class Subscriber {
         for (String keys : TopicsAndPorts.keySet()) {
             if (TopicsAndPorts.get(keys).contains(choice)) {
                 brokerPort = Integer.parseInt(keys);
-                System.out.println(brokerPort);
+                //System.out.println(brokerPort);
                 break;
             }
         }
         try {
-            if(brokerPort!=0) {
+            if (brokerPort != 0) {
                 subSocket = new Socket(InetAddress.getByName("localhost"), brokerPort);
                 out = new ObjectOutputStream(subSocket.getOutputStream());
                 in = new ObjectInputStream(subSocket.getInputStream());
                 out.writeObject(new Message("InfoToSub", choice, ""));
                 while (true) {
-                    System.out.println();
+                    //System.out.println();
                     Message info = (Message) in.readObject();
                     System.out.println(info);
                 }
-            }
-            else{
-                System.out.println("There is no Bus with this code: "+choice);
-                System.out.println();
-                System.out.println();
+            } else {
+                System.out.println("There is no Bus with this code: " + choice);
+                //System.out.println();
                 Subscriber.main(null);
             }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
-
     }
-
-    /*
-
-
-    public void connect() {
-    }
-
-    public void disconnect() {
-    }
-
-     */
 }
