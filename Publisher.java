@@ -29,7 +29,7 @@ public class Publisher {
         Socket requestSocket;
         ObjectOutputStream out;
         try {
-            requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
+            requestSocket = new Socket(InetAddress.getByName("localhost"), 10256);
             out = new ObjectOutputStream(requestSocket.getOutputStream());
             out.writeObject(new Message("NotifyPub", "Give to the publisher all the info ", portid + ""));
             out.flush();

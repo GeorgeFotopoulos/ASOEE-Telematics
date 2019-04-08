@@ -7,7 +7,7 @@ import java.net.Socket;
 class ClientHandler extends Thread
 {
     final ObjectInputStream dis;
-    final ObjectOutputStream dos;
+    ObjectOutputStream dos;
     final Socket s;
 
 
@@ -47,18 +47,22 @@ class ClientHandler extends Thread
                     Broker.notify(Integer.parseInt(received.busline));
                     break;
                 }else if (received.getPubSub().equals("NotifySub")) {
-                    ObjectOutputStream dis = new ObjectOutputStream(s.getOutputStream());
-                    dis.writeObject(new Message( Broker.Topics, Broker.IPPORT));
-                    dis.flush();
+                    System.out.println("Mpike sto NotifySub");
+                    Message toSend=new Message(Broker.Topics, Broker.IPPORT);
+                    dos.writeObject(toSend);
+                    System.out.println("Esteile sto NotifySub");
+                    dos.flush();
+                    break;
                 }else if (received.getPubSub().equals("NotifyPub")) {
                    // System.out.println(received);
                    // System.out.println("TYPOU 4");
                     for (String key : Broker.IPPORT.keySet()) {
                         try {
                             Socket innercontact = new Socket(InetAddress.getByName("localhost"), Integer.parseInt(key));
-                            ObjectOutputStream dis = new ObjectOutputStream(innercontact.getOutputStream());
-                            dis.writeObject(new Message("InnerBrokerCom", received.data, " Should send the topics to this port"));
-                            dis.flush();
+                            ObjectOutputStream dos = new ObjectOutputStream(innercontact.getOutputStream());
+                            dos.writeObject(new Message("InnerBrokerCom", received.data, " Should send the topics to this port"));
+                            dos.flush();
+
                         } catch (Exception e) {
                         }
 
