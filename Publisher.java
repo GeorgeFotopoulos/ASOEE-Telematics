@@ -31,7 +31,7 @@ public class Publisher {
         try {
             requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
             out = new ObjectOutputStream(requestSocket.getOutputStream());
-            out.writeObject(new Message(4, "Give to the publisher all the info ", portid + ""));
+            out.writeObject(new Message("NotifyPub", "Give to the publisher all the info ", portid + ""));
             out.flush();
             Thread.sleep(50);
         } catch (Exception e) {
@@ -64,7 +64,7 @@ public class Publisher {
 
     public static synchronized void push(ObjectOutputStream out, Message msg) {
         try {
-            out.writeObject(new Message(1, msg.busline, msg.data));
+            out.writeObject(new Message("BusInfoByPub", msg.busline, msg.data));
             out.flush();
         } catch (IOException e) {
             System.err.println("Couldn't send from Pub to Broker");

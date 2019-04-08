@@ -53,7 +53,7 @@ public class FileReaders {
                 st.nextToken();
                 latitude = st.nextToken();
                 longitude = st.nextToken();
-                busPositions.add(new Message(1, lineCode, latitude + " " + longitude));
+                busPositions.add(new Message("NoTopicMsg", lineCode, latitude + " " + longitude));
             }
         } catch (IOException e) {
             e.printStackTrace();
