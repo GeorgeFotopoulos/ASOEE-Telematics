@@ -72,11 +72,8 @@ class ClientHandler extends Thread
                 // receive the answer from client 
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
-                break;
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+               continue;
             }
         }
 

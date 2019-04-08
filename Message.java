@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Message implements Serializable {
 
@@ -7,6 +8,7 @@ public class Message implements Serializable {
     ArrayList<String> topics;
     int PubSubBrok, port;
     String busline, data;
+    HashMap<String,String> ports=new HashMap<>();
 
     public Message(int PubSubBrok, String busline, String data) {
         super();
@@ -19,6 +21,11 @@ public class Message implements Serializable {
         this.topics = topics;
         this.port = port;
     }
+    public Message(ArrayList<String> topics, HashMap<String,String> ports) {
+        this.topics = topics;
+        this.ports = ports;
+    }
+
 
     public int getPubSub() {
         return PubSubBrok;
