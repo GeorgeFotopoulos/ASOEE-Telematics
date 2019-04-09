@@ -17,7 +17,6 @@ public class Subscriber {
     private static final String IPOFSUB = "192.168.1.4";
     private static int PORTTOSEND;
 
-
     public static void main(String[] args) {
         HashMap<String, String> IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
         for (String key : IPPORT.keySet()) {

@@ -19,13 +19,16 @@ class ClientHandler extends Thread {
         this.out = out;
     }
 
-    @Override
+    /**
+     * Every message coming to a Broker should be of the type public Message(String PubSubBrok, String busline, String data).
+     * Depending on the code of PubSubBrok that we get from getPubSub(), we deal with the incoming messages independently,
+     * so that requests for messages, notifications, failures are implemented in this run().
+     */
     public void run() {
         Message received = null;
         Message toSend;
         String temp;
         ObjectOutputStream output;
-
         try {
             received = (Message) in.readObject();
         } catch (IOException e) {
@@ -33,7 +36,6 @@ class ClientHandler extends Thread {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
         while (true) {
             try {
                 if (received.getPubSub().equals("BusInfoByPub")) {
@@ -56,22 +58,16 @@ class ClientHandler extends Thread {
                         temp = toSend.data;
                     }
                 } else if (received.getPubSub().equals("InnerBrokerCom")) {
-                    // System.out.println("PHRE KWDIKO 3");
-                    // System.out.println(received.busline);
                     Broker.notify(Integer.parseInt(received.busline));
                     break;
                 } else if (received.getPubSub().equals("Failure")) {
                     Broker.leak = true;
                 } else if (received.getPubSub().equals("NotifySub")) {
-                    //System.out.println("Mpike sto NotifySub");
                     toSend = new Message(Broker.Topics, Broker.IPPORT);
                     out.writeObject(toSend);
                     out.flush();
-                    //System.out.println("Esteile sto NotifySub");
                     break;
                 } else if (received.getPubSub().equals("NotifyPub")) {
-                    // System.out.println(received);
-                    // System.out.println("TYPOU 4");
                     for (String key : Broker.IPPORT.keySet()) {
                         try {
                             Socket innercontact = new Socket(Broker.myIP, Integer.parseInt(key));
@@ -84,13 +80,11 @@ class ClientHandler extends Thread {
                     Broker.notify(Integer.parseInt(received.data));
                     break;
                 }
-                //System.out.println("kleinei to connection");
                 s.close();
             } catch (Exception e) {
                 continue;
             }
         }
-
         try {
             in.close();
             out.close();

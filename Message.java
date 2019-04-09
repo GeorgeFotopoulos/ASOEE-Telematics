@@ -2,12 +2,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * All constructors differentiate from each other in order to maximize usability.
+ */
+
 public class Message implements Serializable {
     private static final long serialVersionUID = 12345L;
-    ArrayList<String> topics;
-    int port;
-    String busline, data, PubSubBrok;
     HashMap<String, String> ports = new HashMap<>();
+    ArrayList<String> topics;
+    String busline, data, PubSubBrok;
+    int port;
 
     public Message(String PubSubBrok, String busline, String data) {
         super();
@@ -30,6 +34,12 @@ public class Message implements Serializable {
         return PubSubBrok;
     }
 
+    /**
+     * This method returns the bus line and the current location.
+     * Overrides toString().
+     *
+     * @return Bus Line plus longitude, latitude.
+     */
     public String toString() {
         return busline + ": " + data;
     }

@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 public class FileReaders {
     /**
      * This method reads a file and stores some of its contents (lineID, lineCode) in a Hash Map.
+     *
      * @param fileName File used as an input to read from.
      * @return A Hash Map containing LineID & LineCode.
      */
@@ -42,6 +43,7 @@ public class FileReaders {
 
     /**
      * This method reads a file and stores some of its contents (lineCode, latitude, longitude) in an Array List.
+     *
      * @param fileName File used as an input to read from
      * @return An Array List containing LineCode & Latitude-Longitude.
      */

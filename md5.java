@@ -7,6 +7,7 @@ public class md5 {
      * MD5 algorithm will be used to hash keys, such as Broker's IP+Port and BusLineIDs, so that
      * the bus lines will be somewhat evenly distributed to the Brokers and each one will be
      * responsible for specific keys, whose hash is lower than his IP+Port's hash.
+     *
      * @param input The string which we want to hash using MD5 algorithm.
      * @return The outcome of the use of MD5 algorithm on the input String, also known as digest.
      */

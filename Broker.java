@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Broker {
-
     static HashMap<String, String> HM = new HashMap<>();
     static HashMap<String, String> IPPORT;
     static ArrayList<String> Topics = new ArrayList<>();
@@ -24,27 +23,23 @@ public class Broker {
         System.out.println("Which broker is this? Type 1 for first, 2 for second & 3 for third: ");
         Scanner input = new Scanner(System.in);
         int choice = input.nextInt();
-        int i=1;
-        for(String key: IPPORT.keySet()){
-            if(i== choice){
-                portid=Integer.parseInt(key);
+        int i = 1;
+        for (String key : IPPORT.keySet()) {
+            if (i == choice) {
+                portid = Integer.parseInt(key);
             }
             i++;
         }
-        myIP=IPPORT.get(portid+"");
-        init(portid);
+        myIP = IPPORT.get(portid + "");
+        init();
         calculateKeys(portid);
         acceptConnections();
     }
 
     /**
-     * In this method we initialize a new Broker object, whose PORT is given as a parameter.
-     * Along with the object, we also create a communication socket per Broker using his port.
-     *
-     * @param i Indicates the Broker's PORT number.
+     * This method opens the Broker's server.
      */
-    public static void init(int i) {
-
+    public static void init() {
         try {
             providerSocket = new ServerSocket(portid);
         } catch (IOException e) {
@@ -53,7 +48,8 @@ public class Broker {
     }
 
     /**
-     *
+     * This method accepts connections and creates threads used for the concurrent
+     * communication between the Broker and the Subscribers.
      */
     public static void acceptConnections() {
         System.out.println("Broker with port " + portid + " is opening...");
@@ -61,10 +57,9 @@ public class Broker {
             Socket connection;
             try {
                 connection = providerSocket.accept();
-                //System.out.println("New Connection");
+                System.out.println("New Connection");
                 ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
-                //System.out.println("pasda");
                 Thread t = new ClientHandler(connection, in, out);
                 t.start();
             } catch (IOException e) {
@@ -76,7 +71,6 @@ public class Broker {
     /**
      * This method hashes a particular Broker's IP+PORT, plus all the bus line IDs using
      * the MD5 algorithm.
-     *
      * It also assigns buses whose hash digest is lower than a Broker's IP+PORT hash to that
      * particular Broker.
      *
@@ -84,8 +78,6 @@ public class Broker {
      */
     public static void calculateKeys(int portid) {
         HashMap<String, String> Buslines = FileReaders.readBusLines(new File("busLinesNew.txt"));
-
-        //Set<String> keys = Buslines.keySet();
         HashMap<String, BigInteger> digestsofPort = new HashMap<>();
         BigInteger max = BigInteger.ZERO;
         for (String key : IPPORT.keySet()) {
@@ -116,17 +108,14 @@ public class Broker {
      * @param port This is the PORT of the Broker for whom we want to show information.
      */
     public static synchronized void notify(int port) {
-        //System.out.println("TEST" + portid);
         ObjectOutputStream out;
         try {
             Socket innercontact = new Socket(myIP, port);
             out = new ObjectOutputStream(innercontact.getOutputStream());
             Message info = new Message(Topics, portid);
-            //System.out.println(info.topics);
             out.writeObject(info);
             out.flush();
         } catch (Exception e) {
         }
     }
-
 }
