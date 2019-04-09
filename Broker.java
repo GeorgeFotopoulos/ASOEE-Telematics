@@ -57,7 +57,6 @@ public class Broker {
             Socket connection;
             try {
                 connection = providerSocket.accept();
-                System.out.println("New Connection");
                 ObjectOutputStream out = new ObjectOutputStream(connection.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
                 Thread t = new ClientHandler(connection, in, out);

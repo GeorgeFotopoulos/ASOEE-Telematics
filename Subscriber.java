@@ -14,7 +14,7 @@ public class Subscriber {
     static ObjectOutputStream out;
     static ObjectInputStream in;
     static String choice;
-    private static final String IPOFSUB = "192.168.1.4";
+    private static final String IPOFSUB = "192.168.1.6";
     private static int PORTTOSEND;
 
     public static void main(String[] args) {

@@ -49,13 +49,20 @@ class ClientHandler extends Thread {
                         out.flush();
                     }
                     temp = "";
+                    toSend = new Message("Info to Sub", received.busline, Broker.HM.get(received.busline));
+                    if (toSend.data == null) {
+                        out.writeObject(new Message("", toSend.busline, "No information available for this bus as of right now."));
+                        out.flush();
+                    }
                     while (true) {
-                        toSend = new Message("Info to Sub", received.busline, Broker.HM.get(received.busline));
-                        if (!temp.equals(toSend.data)) {
-                            out.writeObject(toSend);
-                            out.flush();
+                        if (toSend.data != null) {
+                            if (!temp.equals(toSend.data)) {
+                                out.writeObject(toSend);
+                                out.flush();
+                            }
+                            temp = toSend.data;
                         }
-                        temp = toSend.data;
+                        toSend = new Message("Info to Sub", received.busline, Broker.HM.get(received.busline));
                     }
                 } else if (received.getPubSub().equals("InnerBrokerCom")) {
                     Broker.notify(Integer.parseInt(received.busline));
