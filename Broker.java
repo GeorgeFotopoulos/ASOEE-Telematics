@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -11,9 +10,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Broker {
-    //static List<Broker> brokers;
-    //static List<Subscriber> registeredSubscribers;
-    //static List<Publisher> registeredPublishers;
+
     static HashMap<String, String> HM = new HashMap<>();
     static HashMap<String, String> IPPORT;
     static ArrayList<String> Topics = new ArrayList<>();
@@ -23,11 +20,20 @@ public class Broker {
     static int portid;
 
     public static void main(String[] args) {
+        IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
         System.out.println("Which broker is this? Type 1 for first, 2 for second & 3 for third: ");
         Scanner input = new Scanner(System.in);
         int choice = input.nextInt();
-        init(10256 + (choice - 1));
-        calculateKeys(10256 + (choice - 1));
+        int i=1;
+        for(String key: IPPORT.keySet()){
+            if(i== choice){
+                portid=Integer.parseInt(key);
+            }
+            i++;
+        }
+        myIP=IPPORT.get(portid+"");
+        init(portid);
+        calculateKeys(portid);
         acceptConnections();
     }
 
@@ -38,7 +44,7 @@ public class Broker {
      * @param i Indicates the Broker's PORT number.
      */
     public static void init(int i) {
-        Broker.portid = i;
+
         try {
             providerSocket = new ServerSocket(portid);
         } catch (IOException e) {
@@ -78,13 +84,11 @@ public class Broker {
      */
     public static void calculateKeys(int portid) {
         HashMap<String, String> Buslines = FileReaders.readBusLines(new File("busLinesNew.txt"));
-        IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
+
         //Set<String> keys = Buslines.keySet();
         HashMap<String, BigInteger> digestsofPort = new HashMap<>();
         BigInteger max = BigInteger.ZERO;
         for (String key : IPPORT.keySet()) {
-            if (key.equals(portid + ""))
-                myIP = IPPORT.get(key);
             digestsofPort.put(key, new BigInteger(md5.getMd5(IPPORT.get(key) + key), 16));
             if (digestsofPort.get(key).compareTo(max) > 0) {
                 max = digestsofPort.get(key);
@@ -115,7 +119,7 @@ public class Broker {
         //System.out.println("TEST" + portid);
         ObjectOutputStream out;
         try {
-            Socket innercontact = new Socket(InetAddress.getByName("localhost"), port);
+            Socket innercontact = new Socket(myIP, port);
             out = new ObjectOutputStream(innercontact.getOutputStream());
             Message info = new Message(Topics, portid);
             //System.out.println(info.topics);

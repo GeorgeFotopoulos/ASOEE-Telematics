@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -16,10 +15,18 @@ public class Publisher {
     static ArrayList<String> PubsDuty = new ArrayList<>();
     static ArrayList<Message> busPositions = new ArrayList<>();
     static HashMap<String, String> busLines = new HashMap<>();
+    private static final String PUBIP="192.168.1.4";
+    private static int PORTTOSEND;
 
     public static void main(String[] args) {
+        HashMap<String, String> IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
+        for (String key : IPPORT.keySet()) {
+            PORTTOSEND = Integer.parseInt(key);
+            break;
+        }
+        IPPORT.clear();
         busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
-        init(14111);
+        init();
         //System.out.println(portid);
         getBrokerList();
         new Publisher().startClient();
@@ -29,7 +36,7 @@ public class Publisher {
         Socket requestSocket;
         ObjectOutputStream out;
         try {
-            requestSocket = new Socket(InetAddress.getByName("localhost"), 10256);
+            requestSocket = new Socket(PUBIP, PORTTOSEND);
             out = new ObjectOutputStream(requestSocket.getOutputStream());
             out.writeObject(new Message("NotifyPub", "Give to the publisher all the info ", portid + ""));
             out.flush();
@@ -73,7 +80,7 @@ public class Publisher {
             for (int j = 0; j < PubsDuty.size(); j++) {
                 if (allchoices.get(i).topics.contains(PubsDuty.get(j))) {
                     try {
-                        requestSocket = new Socket(InetAddress.getByName("localhost"), allchoices.get(i).port);
+                        requestSocket = new Socket(PUBIP, allchoices.get(i).port);
                         ObjectOutputStream out = new ObjectOutputStream(requestSocket.getOutputStream());
                         // in=new ObjectInputStream(requestSocket.getInputStream());
                         PubHandler ph = new PubHandler(requestSocket, out, allchoices.get(i).port);
@@ -87,33 +94,15 @@ public class Publisher {
             }
         }
     }
-//  Socket requestSocket;
-//
-//  while (true) {
-//      for (int i = 0; i < busPositions.size(); i++) {
-//          for (int j = 0; j < PubsDuty.size(); j++) {
-//              if (busLines.get(PubsDuty.get(j)).equals(busPositions.get(i).getbusline())) {
-//                  try {
-//                      requestSocket = new Socket(InetAddress.getByName("localhost"), 10240);
-//                      out = new ObjectOutputStream(requestSocket.getOutputStream());
-//                      out.writeObject(new Message(1, PubsDuty.get(j), busPositions.get(i).getbusline() + " - " + busPositions.get(i).getData()));
-//                      out.flush();
-//                  } catch (Exception e) {
-//                      System.out.println("Publisher couldn't connect with Server. Retrying...");
-//                      Thread.sleep(2000);
-//                      continue;
-//                  }
-//              }
-//          }
-//      }
-//  }
 
-    public static void init(int i) {
+    public static void init() {
         busLines = FileReaders.readBusLines(new File("busLinesNew.txt"));
         System.out.println("Which publisher is this? Type 1 for first & 2 for second: ");
         Scanner input = new Scanner(System.in);
         int choice = input.nextInt();
-        portid = i + choice - 1;
+
+        System.out.println("Give the port of the Publisher");
+        portid = input.nextInt();
         int flag = 0;
         if (choice == 1) {
             for (String key : busLines.keySet()) {
@@ -135,7 +124,7 @@ public class Publisher {
         }
 
         try {
-            InfoTaker = new ServerSocket(i + (choice - 1));
+            InfoTaker = new ServerSocket(portid);
         } catch (IOException e) {
             e.printStackTrace();
         }

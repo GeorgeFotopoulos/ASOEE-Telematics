@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
 import java.net.Socket;
 
 class ClientHandler extends Thread {
@@ -75,7 +74,7 @@ class ClientHandler extends Thread {
                     // System.out.println("TYPOU 4");
                     for (String key : Broker.IPPORT.keySet()) {
                         try {
-                            Socket innercontact = new Socket(InetAddress.getByName("localhost"), Integer.parseInt(key));
+                            Socket innercontact = new Socket(Broker.myIP, Integer.parseInt(key));
                             output = new ObjectOutputStream(innercontact.getOutputStream());
                             output.writeObject(new Message("InnerBrokerCom", received.data, " Should send the topics to this port"));
                             output.flush();
