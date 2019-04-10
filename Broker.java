@@ -117,4 +117,14 @@ public class Broker {
         } catch (Exception e) {
         }
     }
+
+    public static void pull(ObjectOutputStream out, Message toSend) {
+        try {
+            out.writeObject(toSend);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

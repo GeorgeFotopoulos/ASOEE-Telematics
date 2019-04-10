@@ -57,8 +57,7 @@ class ClientHandler extends Thread {
                     while (true) {
                         if (toSend.data != null) {
                             if (!temp.equals(toSend.data)) {
-                                out.writeObject(toSend);
-                                out.flush();
+                                Broker.pull(out,toSend);
                             }
                             temp = toSend.data;
                         }

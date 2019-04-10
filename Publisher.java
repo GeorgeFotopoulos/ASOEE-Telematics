@@ -15,7 +15,7 @@ public class Publisher {
     static ArrayList<String> PubsDuty = new ArrayList<>();
     static ArrayList<Message> busPositions = new ArrayList<>();
     static HashMap<String, String> busLines = new HashMap<>();
-    private static final String PUBIP = "192.168.1.6";
+    private static final String PUBIP = "192.168.1.4";
     private static int PORTTOSEND;
 
     public static void main(String[] args) {
