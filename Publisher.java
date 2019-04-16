@@ -15,16 +15,17 @@ public class Publisher {
     static ArrayList<String> PubsDuty = new ArrayList<>();
     static ArrayList<Message> busPositions = new ArrayList<>();
     static HashMap<String, String> busLines = new HashMap<>();
-    private static final String PUBIP = "192.168.1.4";
+    private static final String PUBIP = "192.168.1.2";
+    private static String IPofBroker;
     private static int PORTTOSEND;
+    public static HashMap<String, String> IPPORT;
 
     public static void main(String[] args) {
-        HashMap<String, String> IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
+        IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
         for (String key : IPPORT.keySet()) {
             PORTTOSEND = Integer.parseInt(key);
-            break;
+            IPofBroker = IPPORT.get(key);
         }
-        IPPORT.clear();
         busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
         init();
         getBrokerList();
@@ -39,9 +40,9 @@ public class Publisher {
         Socket requestSocket;
         ObjectOutputStream out;
         try {
-            requestSocket = new Socket(PUBIP, PORTTOSEND);
+            requestSocket = new Socket(IPofBroker, PORTTOSEND);
             out = new ObjectOutputStream(requestSocket.getOutputStream());
-            out.writeObject(new Message("NotifyPub", "Give to the publisher all the info ", portid + ""));
+            out.writeObject(new Message("NotifyPub", PUBIP + "", portid + ""));
             out.flush();
         } catch (Exception e) {
         }
@@ -91,7 +92,7 @@ public class Publisher {
             for (int j = 0; j < PubsDuty.size(); j++) {
                 if (allchoices.get(i).topics.contains(PubsDuty.get(j))) {
                     try {
-                        requestSocket = new Socket(PUBIP, allchoices.get(i).port);
+                        requestSocket = new Socket(IPPORT.get(allchoices.get(i).port), allchoices.get(i).port);
                         ObjectOutputStream out = new ObjectOutputStream(requestSocket.getOutputStream());
                         PubHandler ph = new PubHandler(requestSocket, out, allchoices.get(i).port);
                         ph.start();

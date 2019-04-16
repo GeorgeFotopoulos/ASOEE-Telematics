@@ -14,16 +14,16 @@ public class Subscriber {
     static ObjectOutputStream out;
     static ObjectInputStream in;
     static String choice;
-    private static final String IPOFSUB = "192.168.1.4";
+    private static String IPOFSUB = "192.168.1.2";
     private static int PORTTOSEND;
+    public static HashMap<String, String> IPPORT;
 
     public static void main(String[] args) {
-        HashMap<String, String> IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
+        IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
         for (String key : IPPORT.keySet()) {
             PORTTOSEND = Integer.parseInt(key);
-            break;
+			IPOFSUB=IPPORT.get(key);
         }
-        IPPORT.clear();
         notifyClient();
         Scanner input = new Scanner(System.in);
         System.out.println("Choose one of the following bus lines to get its position information: ");
@@ -57,6 +57,7 @@ public class Subscriber {
             TopicsAndPorts.put(PORTTOSEND + "", temp.topics);
             subSocket.close();
             for (String key : temp.ports.keySet()) {
+				IPOFSUB= IPPORT.get(key);
                 subSocket = new Socket(IPOFSUB, Integer.parseInt(key));
                 out = new ObjectOutputStream(subSocket.getOutputStream());
                 in = new ObjectInputStream(subSocket.getInputStream());
@@ -103,6 +104,7 @@ public class Subscriber {
         for (String keys : TopicsAndPorts.keySet()) {
             if (TopicsAndPorts.get(keys).contains(choice)) {
                 brokerPort = Integer.parseInt(keys);
+				IPOFSUB=IPPORT.get(brokerPort);
                 break;
             }
         }

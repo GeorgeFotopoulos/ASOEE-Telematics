@@ -23,14 +23,7 @@ public class Broker {
         System.out.println("Which broker is this? Type 1 for first, 2 for second & 3 for third: ");
         Scanner input = new Scanner(System.in);
         int choice = input.nextInt();
-        int i = 1;
-        for (String key : IPPORT.keySet()) {
-            if (i == choice) {
-                portid = Integer.parseInt(key);
-            }
-            i++;
-        }
-        myIP = IPPORT.get(portid + "");
+        myIP = IPPORT.get(choice + "");
         init();
         calculateKeys(portid);
         acceptConnections();
@@ -106,25 +99,15 @@ public class Broker {
      *
      * @param port This is the PORT of the Broker for whom we want to show information.
      */
-    public static synchronized void notify(int port) {
+    public static synchronized void notify(String ip,int port) {
         ObjectOutputStream out;
         try {
-            Socket innercontact = new Socket(myIP, port);
+            Socket innercontact = new Socket(ip, port);
             out = new ObjectOutputStream(innercontact.getOutputStream());
             Message info = new Message(Topics, portid);
             out.writeObject(info);
             out.flush();
         } catch (Exception e) {
         }
-    }
-
-    public static void pull(ObjectOutputStream out, Message toSend) {
-        try {
-            out.writeObject(toSend);
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 }

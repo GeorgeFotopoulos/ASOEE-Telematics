@@ -12,12 +12,19 @@ public class Message implements Serializable {
     ArrayList<String> topics;
     String busline, data, PubSubBrok;
     int port;
+	String ip;
 
     public Message(String PubSubBrok, String busline, String data) {
         super();
         this.PubSubBrok = PubSubBrok;
         this.busline = busline;
         this.data = data;
+    }
+	
+	public Message(ArrayList<String> topics,String IP ,int port) {
+        this.topics = topics;
+        this.port = port;
+		this.ip=IP;
     }
 
     public Message(ArrayList<String> topics, int port) {

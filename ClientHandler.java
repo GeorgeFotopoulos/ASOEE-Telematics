@@ -57,33 +57,34 @@ class ClientHandler extends Thread {
                     while (true) {
                         if (toSend.data != null) {
                             if (!temp.equals(toSend.data)) {
-                                Broker.pull(out,toSend);
+                                out.writeObject(toSend);
+                                out.flush();
                             }
                             temp = toSend.data;
                         }
                         toSend = new Message("Info to Sub", received.busline, Broker.HM.get(received.busline));
                     }
                 } else if (received.getPubSub().equals("InnerBrokerCom")) {
-                    Broker.notify(Integer.parseInt(received.busline));
+                    Broker.notify(received.data,Integer.parseInt(received.busline));
                     break;
                 } else if (received.getPubSub().equals("Failure")) {
                     Broker.leak = true;
                 } else if (received.getPubSub().equals("NotifySub")) {
-                    toSend = new Message(Broker.Topics, Broker.IPPORT);
+                    toSend = new Message(Broker.Topics,Broker.IPPORT);
                     out.writeObject(toSend);
                     out.flush();
                     break;
                 } else if (received.getPubSub().equals("NotifyPub")) {
                     for (String key : Broker.IPPORT.keySet()) {
                         try {
-                            Socket innercontact = new Socket(Broker.myIP, Integer.parseInt(key));
+                            Socket innercontact = new Socket(Broker.IPPORT.get(key), Integer.parseInt(key));
                             output = new ObjectOutputStream(innercontact.getOutputStream());
-                            output.writeObject(new Message("InnerBrokerCom", received.data, " Should send the topics to this port"));
+                            output.writeObject(new Message("InnerBrokerCom", received.data, received.busline));
                             output.flush();
                         } catch (Exception e) {
                         }
                     }
-                    Broker.notify(Integer.parseInt(received.data));
+                    Broker.notify(received.busline,Integer.parseInt(received.data));
                     break;
                 }
                 s.close();
