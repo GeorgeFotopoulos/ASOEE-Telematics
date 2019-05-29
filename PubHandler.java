@@ -15,6 +15,7 @@ class PubHandler extends Thread {
         this.s = s;
         this.out = out;
         this.port = port;
+        System.out.println("===================================================================");
     }
 
     /**
@@ -22,7 +23,9 @@ class PubHandler extends Thread {
      */
     public void run() {
         while (true) {
-            try {
+            System.out.println("============asdasdasdasda===================");
+
+            try {//TODO should pass information regardless the route . see last updates on hashtables if(Publisher.PubsDuty.get(buslines.get(i).lineCode)=....
                 for (int i = 0; i < Publisher.allchoices.size(); i++) {
                     if (port == Publisher.allchoices.get(i).port) {
                         for (int j = 0; j < Publisher.busPositions.size(); j++) {

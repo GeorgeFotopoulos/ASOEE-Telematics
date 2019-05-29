@@ -26,6 +26,40 @@ public class FileReaders {
                 StringTokenizer st = new StringTokenizer(sCurrentLine, ",");
                 String lineCode = st.nextToken();
                 String lineID = st.nextToken();
+                busLines.put(lineCode, lineID);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) br.close();
+                if (fr != null) fr.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return busLines;
+    }
+
+    /**
+     * This method reads a file and stores some of its contents (lineID, lineCode) in a Hash Map.
+     *
+     * @param fileName File used as an input to read from.
+     * @return A Hash Map containing LineID & LineCode.
+     */
+    public static HashMap<String, String> readHash(File fileName) {
+
+        HashMap<String, String> busLines = new HashMap<>();
+        BufferedReader br = null;
+        FileReader fr = null;
+        try {
+            fr = new FileReader(fileName);
+            br = new BufferedReader(fr);
+            String sCurrentLine;
+            while ((sCurrentLine = br.readLine()) != null) {
+                StringTokenizer st = new StringTokenizer(sCurrentLine, ",");
+                String lineCode = st.nextToken();
+                String lineID = st.nextToken();
                 busLines.put(lineID, lineCode);
             }
         } catch (IOException e) {
@@ -40,6 +74,7 @@ public class FileReaders {
         }
         return busLines;
     }
+
 
     /**
      * This method reads a file and stores some of its contents (lineCode, latitude, longitude) in an Array List.

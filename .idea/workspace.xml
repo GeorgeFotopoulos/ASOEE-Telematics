@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84b25d48-9776-48a1-923e-d0f8df1bd568" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TopicsAndIP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Broker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Broker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Brokers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Brokers.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileReaders.java" beforeDir="false" afterPath="$PROJECT_DIR$/FileReaders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PubHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/PubHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/Publisher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Subscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/Subscriber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DS-Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DS-Project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DS-Project/Brokers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DS-Project/Brokers.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,38 +26,41 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.8787024">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Subscriber.java">
+            <entry file="file://$PROJECT_DIR$/Publisher.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="322">
-                  <caret line="119" column="32" selection-start-line="119" selection-start-column="28" selection-end-line="119" selection-end-column="32" />
+                <state relative-caret-position="340">
+                  <caret line="103" column="32" selection-start-line="103" selection-start-column="27" selection-end-line="103" selection-end-column="32" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ΒusLinesDescription.txt">
-              <provider selected="true" editor-type-id="text-editor" />
+            <entry file="file://$PROJECT_DIR$/busPositionsNew.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="240">
+                  <caret line="12" column="60" lean-forward="true" selection-start-line="12" selection-start-column="60" selection-end-line="12" selection-end-column="60" />
+                </state>
+              </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Broker.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-120">
-                  <caret line="56" column="26" lean-forward="true" selection-start-line="56" selection-start-column="26" selection-end-line="56" selection-end-column="26" />
-                  <caret line="57" column="37" lean-forward="true" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
+                <state relative-caret-position="1500">
+                  <caret line="84" column="43" lean-forward="true" selection-start-line="84" selection-start-column="43" selection-end-line="84" selection-end-column="43" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/PubHandler.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="722">
-                  <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+                <state relative-caret-position="60">
+                  <caret line="27" column="158" selection-start-line="27" selection-start-column="158" selection-end-line="27" selection-end-column="158" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -69,28 +69,19 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Message.java">
+            <entry file="file://$PROJECT_DIR$/FileReaders.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="242">
-                  <caret line="22" column="74" selection-start-line="22" selection-start-column="74" selection-end-line="22" selection-end-column="74" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/RouteCodesNew.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="440">
-                  <caret line="22" column="32" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="32" />
+                <state relative-caret-position="468">
+                  <caret line="100" column="67" selection-start-line="100" selection-start-column="59" selection-end-line="100" selection-end-column="67" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/FileReaders.java">
+            <entry file="file://$PROJECT_DIR$/Brokers.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-238">
-                  <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+                <state relative-caret-position="40">
+                  <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
                 </state>
               </provider>
             </entry>
@@ -99,20 +90,29 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/ΒusLinesDescription.txt">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Message.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="400">
-                  <caret line="20" column="22" selection-start-line="20" selection-end-line="20" selection-end-column="22" />
+                <state relative-caret-position="302">
+                  <caret line="22" column="74" selection-start-line="22" selection-start-column="74" selection-end-line="22" selection-end-column="74" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/busLinesNew.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="180">
+                  <caret line="9" column="8" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="8" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/busLinesNew.txt">
+            <entry file="file://$PROJECT_DIR$/ΒusLinesDescription.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="200">
-                  <caret line="10" column="18" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="18" />
+                <state relative-caret-position="380">
+                  <caret line="19" column="9" selection-start-line="19" selection-end-line="19" selection-end-column="9" />
                 </state>
               </provider>
             </entry>
@@ -154,6 +154,7 @@
       <find>leak</find>
       <find>choice</find>
       <find>37.992845</find>
+      <find>read</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -163,16 +164,16 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Value.java" />
-        <option value="$PROJECT_DIR$/PubHandler.java" />
-        <option value="$PROJECT_DIR$/FileReaders.java" />
         <option value="$PROJECT_DIR$/ClientHandler.java" />
         <option value="$PROJECT_DIR$/TopicsAndIP.java" />
-        <option value="$PROJECT_DIR$/Broker.java" />
-        <option value="$PROJECT_DIR$/Publisher.java" />
         <option value="$PROJECT_DIR$/Brokers.txt" />
-        <option value="$PROJECT_DIR$/Subscriber.java" />
         <option value="$PROJECT_DIR$/Message.java" />
         <option value="$PROJECT_DIR$/RouteCodesNew.txt" />
+        <option value="$PROJECT_DIR$/FileReaders.java" />
+        <option value="$PROJECT_DIR$/Subscriber.java" />
+        <option value="$PROJECT_DIR$/Broker.java" />
+        <option value="$PROJECT_DIR$/Publisher.java" />
+        <option value="$PROJECT_DIR$/PubHandler.java" />
       </list>
     </option>
   </component>
@@ -233,7 +234,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Broker">
+  <component name="RunManager" selected="Application.Subscriber">
     <configuration name="Broker" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Broker" />
       <module name="DS-Project" />
@@ -370,7 +371,14 @@
       <option name="project" value="LOCAL" />
       <updated>1554889540959</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="6/4/2019 changes to Broker Pub Sub by Pat">
+      <created>1559147435335</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1559147435335</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView">
@@ -386,8 +394,8 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49565217" visible="true" weight="0.20842217" />
-      <window_info id="Structure" order="1" sideWeight="0.5043478" side_tool="true" visible="true" weight="0.20842217" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4955595" visible="true" weight="0.015991472" />
+      <window_info id="Structure" order="1" sideWeight="0.5044405" side_tool="true" visible="true" weight="0.015991472" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -395,7 +403,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5090618" visible="true" weight="0.2524377" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5090618" visible="true" weight="0.3900325" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -448,6 +456,18 @@
     <MESSAGE value="6/4/2019 changes to Broker Pub Sub by Pat" />
     <option name="LAST_COMMIT_MESSAGE" value="6/4/2019 changes to Broker Pub Sub by Pat" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Publisher.java</url>
+          <line>98</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/DS_Project$Publisher.ic" NAME="Publisher Coverage Results" MODIFIED="1554673334207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
@@ -459,9 +479,33 @@
     <entry file="file://$PROJECT_DIR$/Bus.java" />
     <entry file="file://$PROJECT_DIR$/Topic.java" />
     <entry file="file://$PROJECT_DIR$/Value.java" />
+    <entry file="file://$PROJECT_DIR$/TopicsAndIP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RouteCodesNew.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="25" column="29" lean-forward="true" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/lang/NumberFormatException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="64" column="15" selection-start-line="64" selection-start-column="15" selection-end-line="64" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ClientHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="1440">
           <caret line="72" column="68" selection-start-line="72" selection-start-column="62" selection-end-line="72" selection-end-column="68" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -469,17 +513,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Publisher.java">
+    <entry file="file://$PROJECT_DIR$/Subscriber.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="17" column="52" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
+        <state relative-caret-position="282">
+          <caret line="120" column="43" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TopicsAndIP.java">
+    <entry file="file://$PROJECT_DIR$/busPositionsNew.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+        <state relative-caret-position="240">
+          <caret line="12" column="60" lean-forward="true" selection-start-line="12" selection-start-column="60" selection-end-line="12" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="22" column="74" selection-start-line="22" selection-start-column="74" selection-end-line="22" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ΒusLinesDescription.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="19" column="9" selection-start-line="19" selection-end-line="19" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/busLinesNew.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" column="8" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -492,67 +557,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Broker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-120">
-          <caret line="56" column="26" lean-forward="true" selection-start-line="56" selection-start-column="26" selection-end-line="56" selection-end-column="26" />
-          <caret line="57" column="37" lean-forward="true" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
+        <state relative-caret-position="1500">
+          <caret line="84" column="43" lean-forward="true" selection-start-line="84" selection-start-column="43" selection-end-line="84" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/busPositionsNew.txt">
+    <entry file="file://$PROJECT_DIR$/Publisher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2120">
-          <caret line="106" column="61" selection-start-line="106" selection-start-column="61" selection-end-line="106" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PubHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="340">
+          <caret line="103" column="32" selection-start-line="103" selection-start-column="27" selection-end-line="103" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FileReaders.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-238">
-          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+        <state relative-caret-position="468">
+          <caret line="100" column="67" selection-start-line="100" selection-start-column="59" selection-end-line="100" selection-end-column="67" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Subscriber.java">
+    <entry file="file://$PROJECT_DIR$/PubHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="119" column="32" selection-start-line="119" selection-start-column="28" selection-end-line="119" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Message.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="22" column="74" selection-start-line="22" selection-start-column="74" selection-end-line="22" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/busLinesNew.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" column="18" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ΒusLinesDescription.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RouteCodesNew.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="22" column="32" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="32" />
+        <state relative-caret-position="60">
+          <caret line="27" column="158" selection-start-line="27" selection-start-column="158" selection-end-line="27" selection-end-column="158" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

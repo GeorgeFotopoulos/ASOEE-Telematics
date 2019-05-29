@@ -18,7 +18,7 @@ public class Subscriber {
     public static HashMap<String, String> IPPORT;
 
     public static void main(String[] args) {
-        IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
+        IPPORT = FileReaders.readHash(new File("Brokers.txt"));
         for (String key : IPPORT.keySet()) {
             PORTTOSEND = Integer.parseInt(key);
 			IPOFSUB=IPPORT.get(key);
@@ -26,7 +26,7 @@ public class Subscriber {
         notifyClient();
         Scanner input = new Scanner(System.in);
         System.out.println("Choose one of the following bus lines to get its position information: ");
-        HashMap<String, String> Buslines = FileReaders.readBusLines(new File("busLinesNew.txt"));
+        HashMap<String, String> Buslines = FileReaders.readHash(new File("busLinesNew.txt"));
         for (String key : Buslines.keySet()) {
             System.out.print(key + " ");
         }

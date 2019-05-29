@@ -21,7 +21,7 @@ public class Publisher {
     public static HashMap<String, String> IPPORT;
 
     public static void main(String[] args) {
-        IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
+        IPPORT = FileReaders.readHash(new File("Brokers.txt"));
         for (String key : IPPORT.keySet()) {
 			//System.out.println("- "+ IPPORT);
             PORTTOSEND = Integer.parseInt(key);
@@ -30,6 +30,7 @@ public class Publisher {
 			//System.out.println("IP of Broker: "+IPofBroker);
         }
         busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
+        System.out.println(busPositions.get(1));
         init();
         getBrokerList();
         new Publisher().startClient();
@@ -91,6 +92,8 @@ public class Publisher {
      */
     public void startClient() {
         Socket requestSocket;
+        System.out.println(allchoices.size());
+        System.out.println(PubsDuty.size());
         for (int i = 0; i < allchoices.size(); i++) {
             for (int j = 0; j < PubsDuty.size(); j++) {
                 if (allchoices.get(i).topics.contains(PubsDuty.get(j))) {
@@ -122,7 +125,7 @@ public class Publisher {
      * Finally, a socket is created using the Publisher's port, used for communication with the Broker.
      */
     public static void init() {
-        busLines = FileReaders.readBusLines(new File("busLinesNew.txt"));
+        busLines = FileReaders.readHash(new File("busLinesNew.txt"));
         System.out.println("Which Publisher is this? Type 1 for first & 2 for second: ");
         Scanner input = new Scanner(System.in);
         int choice = input.nextInt();

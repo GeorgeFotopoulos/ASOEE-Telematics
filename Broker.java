@@ -19,7 +19,7 @@ public class Broker {
     static int portid;
 
     public static void main(String[] args) {
-        IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
+        IPPORT = FileReaders.readHash(new File("Brokers.txt"));
         System.out.println("Enter Broker Port for the specific IP: ");
         Scanner input = new Scanner(System.in);
         int choice = input.nextInt();
@@ -70,7 +70,7 @@ public class Broker {
      * @param portid This is the PORT number of the Broker whose IP+PORT we want to hash.
      */
     public static void calculateKeys(int portid) {
-        HashMap<String, String> Buslines = FileReaders.readBusLines(new File("busLinesNew.txt"));
+        HashMap<String, String> Buslines = FileReaders.readHash(new File("busLinesNew.txt"));
         HashMap<String, BigInteger> digestsofPort = new HashMap<>();
         BigInteger max = BigInteger.ZERO;
         for (String key : IPPORT.keySet()) {
@@ -80,12 +80,15 @@ public class Broker {
             }
         }
         for (String key : Buslines.keySet()) {
+            System.out.println(key);
             if (((new BigInteger(md5.getMd5(key), 16)).mod(max)).compareTo(new BigInteger(md5.getMd5(myIP + portid), 16)) <= 0) {
-                Topics.add(key);
-                for (String port : digestsofPort.keySet()) {
-                    if (!port.equals(portid + "")) {
-                        if (((new BigInteger(md5.getMd5(key), 16)).mod(max)).compareTo(digestsofPort.get(port)) <= 0 && (new BigInteger(md5.getMd5(myIP + portid), 16)).compareTo(digestsofPort.get(port)) > 0) {
-                            Topics.remove(key);
+                if(!Topics.contains(key)) {
+                    Topics.add(key);
+                    for (String port : digestsofPort.keySet()) {
+                        if (!port.equals(portid + "")) {
+                            if (((new BigInteger(md5.getMd5(key), 16)).mod(max)).compareTo(digestsofPort.get(port)) <= 0 && (new BigInteger(md5.getMd5(myIP + portid), 16)).compareTo(digestsofPort.get(port)) > 0) {
+                                Topics.remove(key);
+                            }
                         }
                     }
                 }
