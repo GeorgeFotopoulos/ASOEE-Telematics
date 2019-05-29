@@ -4,17 +4,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Subscriber {
-    static HashMap<String, ArrayList<String>> TopicsAndPorts = new HashMap<>();
+    static HashMap<String, TopicsAndIP> TopicsAndPorts = new HashMap<>();
     static Socket subSocket;
     static ObjectOutputStream out;
     static ObjectInputStream in;
     static String choice;
-    private static String IPOFSUB = "192.168.1.2";
+    private static String IPOFSUB = "172.16.1.54";
     private static int PORTTOSEND;
     public static HashMap<String, String> IPPORT;
 
@@ -54,21 +53,22 @@ public class Subscriber {
             out.flush();
             in = new ObjectInputStream(subSocket.getInputStream());
             Message temp = (Message) in.readObject();
-            TopicsAndPorts.put(PORTTOSEND + "", temp.topics);
+            TopicsAndPorts.put(PORTTOSEND + "",new TopicsAndIP(temp.topics,IPOFSUB));
             subSocket.close();
             for (String key : temp.ports.keySet()) {
-				IPOFSUB= IPPORT.get(key);
+				IPOFSUB= temp.ports.get(key);
+				System.out.println("asdasd"+ IPOFSUB);
                 subSocket = new Socket(IPOFSUB, Integer.parseInt(key));
                 out = new ObjectOutputStream(subSocket.getOutputStream());
                 in = new ObjectInputStream(subSocket.getInputStream());
                 out.writeObject(new Message("NotifySub", "", ""));
                 out.flush();
                 Message info = (Message) in.readObject();
-                TopicsAndPorts.put(key, info.topics);
+                TopicsAndPorts.put(key, new TopicsAndIP(info.topics,IPOFSUB));
                 subSocket.close();
             }
             for (String key : TopicsAndPorts.keySet()) {
-                System.out.println("Broker[" + key + "]: " + TopicsAndPorts.get(key));
+                System.out.println("Broker[" + key + "]: " + TopicsAndPorts.get(key).array);
             }
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -102,9 +102,11 @@ public class Subscriber {
     public static void getInfo(String choice) {
         int brokerPort = 0;
         for (String keys : TopicsAndPorts.keySet()) {
-            if (TopicsAndPorts.get(keys).contains(choice)) {
+            if (TopicsAndPorts.get(keys).array.contains(choice)) {
                 brokerPort = Integer.parseInt(keys);
-				IPOFSUB=IPPORT.get(brokerPort);
+				IPOFSUB=TopicsAndPorts.get(brokerPort+"").IP;
+				System.out.println(brokerPort);
+                System.out.println(IPOFSUB);
                 break;
             }
         }

@@ -20,6 +20,12 @@ public class Message implements Serializable {
         this.busline = busline;
         this.data = data;
     }
+    public Message(String PubSubBrok, String busline, String data,String vehicleID,String LineCode,String RoutCode){
+        super();
+        this.PubSubBrok = PubSubBrok;
+        this.busline = busline;
+        this.data = data;
+    }
 	
 	public Message(ArrayList<String> topics,String IP ,int port) {
         this.topics = topics;

@@ -20,10 +20,11 @@ public class Broker {
 
     public static void main(String[] args) {
         IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
-        System.out.println("Which broker is this? Type 1 for first, 2 for second & 3 for third: ");
+        System.out.println("Enter Broker Port for the specific IP: ");
         Scanner input = new Scanner(System.in);
         int choice = input.nextInt();
         myIP = IPPORT.get(choice + "");
+        portid = choice;
         init();
         calculateKeys(portid);
         acceptConnections();

@@ -15,7 +15,7 @@ public class Publisher {
     static ArrayList<String> PubsDuty = new ArrayList<>();
     static ArrayList<Message> busPositions = new ArrayList<>();
     static HashMap<String, String> busLines = new HashMap<>();
-    private static final String PUBIP = "192.168.1.2";
+    private static final String PUBIP = "192.168.1.8";
     private static String IPofBroker;
     private static int PORTTOSEND;
     public static HashMap<String, String> IPPORT;
@@ -23,8 +23,11 @@ public class Publisher {
     public static void main(String[] args) {
         IPPORT = FileReaders.readBusLines(new File("Brokers.txt"));
         for (String key : IPPORT.keySet()) {
+			//System.out.println("- "+ IPPORT);
             PORTTOSEND = Integer.parseInt(key);
+			//System.out.println("port: "+PORTTOSEND);
             IPofBroker = IPPORT.get(key);
+			//System.out.println("IP of Broker: "+IPofBroker);
         }
         busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
         init();
@@ -92,14 +95,16 @@ public class Publisher {
             for (int j = 0; j < PubsDuty.size(); j++) {
                 if (allchoices.get(i).topics.contains(PubsDuty.get(j))) {
                     try {
-                        requestSocket = new Socket(IPPORT.get(allchoices.get(i).port), allchoices.get(i).port);
+                        requestSocket = new Socket(IPPORT.get(allchoices.get(i).port+""), allchoices.get(i).port);
                         ObjectOutputStream out = new ObjectOutputStream(requestSocket.getOutputStream());
                         PubHandler ph = new PubHandler(requestSocket, out, allchoices.get(i).port);
                         ph.start();
                         out.flush();
                         break;
                     } catch (Exception e) {
-                        System.err.println("Error");
+						System.out.println(IPPORT.get(allchoices.get(i)));
+                        System.err.println(allchoices.get(i).port);
+						e.printStackTrace();
                     }
                 }
             }
