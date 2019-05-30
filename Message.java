@@ -10,7 +10,7 @@ public class Message implements Serializable {
     private static final long serialVersionUID = 12345L;
     HashMap<String, String> ports = new HashMap<>();
     ArrayList<String> topics;
-    String busline, data, PubSubBrok;
+    String busline, data, PubSubBrok,lineCode,RouteCode,Vehicle;
     int port;
 	String ip;
 
@@ -20,10 +20,26 @@ public class Message implements Serializable {
         this.busline = busline;
         this.data = data;
     }
-    public Message(String PubSubBrok, String busline, String data,String vehicleID,String LineCode,String RoutCode){
+    public Message(String PubSubBrok, String lineCode, String RouteCode,String VehicleId,String data){
         super();
         this.PubSubBrok = PubSubBrok;
-        this.busline = busline;
+        this.lineCode = lineCode;
+        this.Vehicle=VehicleId;
+        this.RouteCode=RouteCode;
+        this.data = data;
+    }
+
+    public void setPubSubBrok(String pubSubBrok) {
+        PubSubBrok = pubSubBrok;
+    }
+
+    public Message(String PubSubBrok, String busLine , String lineCode, String RouteCode, String VehicleId, String data){
+        super();
+        this.busline=busLine;
+        this.PubSubBrok = PubSubBrok;
+        this.lineCode = lineCode;
+        this.Vehicle=VehicleId;
+        this.RouteCode=RouteCode;
         this.data = data;
     }
 	

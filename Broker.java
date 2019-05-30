@@ -10,8 +10,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Broker {
-    static HashMap<String, String> HM = new HashMap<>();
+    static HashMap<String, Message> HM = new HashMap<>();
     static HashMap<String, String> IPPORT;
+    static HashMap<String, String> RouteCodes;
     static ArrayList<String> Topics = new ArrayList<>();
     static ServerSocket providerSocket = null;
     static String myIP;
@@ -19,6 +20,7 @@ public class Broker {
     static int portid;
 
     public static void main(String[] args) {
+        RouteCodes=FileReaders.readRoutCodes(new File("RouteCodesNew.txt"));
         IPPORT = FileReaders.readHash(new File("Brokers.txt"));
         System.out.println("Enter Broker Port for the specific IP: ");
         Scanner input = new Scanner(System.in);

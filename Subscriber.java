@@ -13,7 +13,7 @@ public class Subscriber {
     static ObjectOutputStream out;
     static ObjectInputStream in;
     static String choice;
-    private static String IPOFSUB = "172.16.1.54";
+    private static String IPOFSUB;
     private static int PORTTOSEND;
     public static HashMap<String, String> IPPORT;
 
@@ -32,7 +32,7 @@ public class Subscriber {
         }
         System.out.println();
         choice = input.next();
-        getInfo(choice);
+        getInfo(choice,"MOUSEIO - LYKAVITTOS");
     }
 
     /**
@@ -99,7 +99,7 @@ public class Subscriber {
      *
      * @param choice Subscriber's choice of bus, for which he wants to get information
      */
-    public static void getInfo(String choice) {
+    public static void getInfo(String choice,String Route) {
         int brokerPort = 0;
         for (String keys : TopicsAndPorts.keySet()) {
             if (TopicsAndPorts.get(keys).array.contains(choice)) {
@@ -115,10 +115,10 @@ public class Subscriber {
                 subSocket = new Socket(IPOFSUB, brokerPort);
                 out = new ObjectOutputStream(subSocket.getOutputStream());
                 in = new ObjectInputStream(subSocket.getInputStream());
-                out.writeObject(new Message("InfoToSub", choice, ""));
+                out.writeObject(new Message("InfoToSub", choice, Route));
                 while (true) {
                     Message info = (Message) in.readObject();
-                    System.out.println(info);
+                    System.out.println(info +" - " +info.RouteCode+ " -veh: "+ info.Vehicle);
                 }
             } else {
                 System.out.println("There is no Bus with code " + choice);

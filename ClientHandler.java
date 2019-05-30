@@ -41,7 +41,7 @@ class ClientHandler extends Thread {
                 if (received.getPubSub().equals("BusInfoByPub")) {
                     while (true) {
                         received = (Message) in.readObject();
-                        Broker.HM.put(received.busline, received.data);
+                        Broker.HM.put(received.busline, received);
                     }
                 } else if (received.getPubSub().equals("InfoToSub")) {
                     if (Broker.leak) {
@@ -49,7 +49,10 @@ class ClientHandler extends Thread {
                         out.flush();
                     }
                     temp = "";
-                    toSend = new Message("Info to Sub", received.busline, Broker.HM.get(received.busline));
+                    String choice = Broker.RouteCodes.get(received.data);
+                    //TODO filter for going or coming bus
+                    toSend = Broker.HM.get(received.busline);
+                    toSend.setPubSubBrok("Info To Sub");
                     if (toSend.data == null) {
                         out.writeObject(new Message("", toSend.busline, "No information available for this bus as of right now."));
                         out.flush();
@@ -57,20 +60,23 @@ class ClientHandler extends Thread {
                     while (true) {
                         if (toSend.data != null) {
                             if (!temp.equals(toSend.data)) {
-                                out.writeObject(toSend);
-                                out.flush();
+                                if (choice.equals(toSend.RouteCode)) {
+                                    out.writeObject(toSend);
+                                    out.flush();
+                                }
                             }
                             temp = toSend.data;
                         }
-                        toSend = new Message("Info to Sub", received.busline, Broker.HM.get(received.busline));
+                        toSend = Broker.HM.get(received.busline);
+                        toSend.setPubSubBrok("Info To Sub");
                     }
                 } else if (received.getPubSub().equals("InnerBrokerCom")) {
-                    Broker.notify(received.data,Integer.parseInt(received.busline));
+                    Broker.notify(received.data, Integer.parseInt(received.busline));
                     break;
                 } else if (received.getPubSub().equals("Failure")) {
                     Broker.leak = true;
                 } else if (received.getPubSub().equals("NotifySub")) {
-                    toSend = new Message(Broker.Topics,Broker.IPPORT);
+                    toSend = new Message(Broker.Topics, Broker.IPPORT);
                     out.writeObject(toSend);
                     out.flush();
                     break;
@@ -84,7 +90,7 @@ class ClientHandler extends Thread {
                         } catch (Exception e) {
                         }
                     }
-                    Broker.notify(received.busline,Integer.parseInt(received.data));
+                    Broker.notify(received.busline, Integer.parseInt(received.data));
                     break;
                 }
                 s.close();

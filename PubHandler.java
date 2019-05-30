@@ -24,14 +24,13 @@ class PubHandler extends Thread {
     public void run() {
         while (true) {
             System.out.println("============asdasdasdasda===================");
-
             try {//TODO should pass information regardless the route . see last updates on hashtables if(Publisher.PubsDuty.get(buslines.get(i).lineCode)=....
                 for (int i = 0; i < Publisher.allchoices.size(); i++) {
                     if (port == Publisher.allchoices.get(i).port) {
                         for (int j = 0; j < Publisher.busPositions.size(); j++) {
                             for (int x = 0; x < Publisher.allchoices.get(i).topics.size(); x++) {
-                                if ((Publisher.busLines.get(Publisher.allchoices.get(i).topics.get(x))).equals(Publisher.busPositions.get(j).busline) && Publisher.PubsDuty.contains(Publisher.allchoices.get(i).topics.get(x))) {
-                                    Message msg = (new Message("FromHandlerToPush", Publisher.allchoices.get(i).topics.get(x), Publisher.busPositions.get(j).data));
+                                if ((Publisher.busLines.get(Publisher.busPositions.get(j).lineCode).equals((Publisher.allchoices.get(i).topics.get(x))) && Publisher.PubsDuty.contains(Publisher.allchoices.get(i).topics.get(x)))) {
+                                    Message msg = (new Message("FromHandlerToPush", Publisher.allchoices.get(i).topics.get(x),Publisher.busPositions.get(j).lineCode,Publisher.busPositions.get(j).RouteCode,Publisher.busPositions.get(j).Vehicle ,Publisher.busPositions.get(j).data));
                                     try {
                                         Publisher.push(out, msg);
                                     } catch (Exception e) {

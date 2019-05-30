@@ -23,11 +23,11 @@ public class Publisher {
     public static void main(String[] args) {
         IPPORT = FileReaders.readHash(new File("Brokers.txt"));
         for (String key : IPPORT.keySet()) {
-			//System.out.println("- "+ IPPORT);
+            //System.out.println("- "+ IPPORT);
             PORTTOSEND = Integer.parseInt(key);
-			//System.out.println("port: "+PORTTOSEND);
+            //System.out.println("port: "+PORTTOSEND);
             IPofBroker = IPPORT.get(key);
-			//System.out.println("IP of Broker: "+IPofBroker);
+            //System.out.println("IP of Broker: "+IPofBroker);
         }
         busPositions = FileReaders.readBusPositions(new File("busPositionsNew.txt"));
         System.out.println(busPositions.get(1));
@@ -79,7 +79,8 @@ public class Publisher {
      */
     public static synchronized void push(ObjectOutputStream out, Message msg) {
         try {
-            out.writeObject(new Message("BusInfoByPub", msg.busline, msg.data));
+            msg.setPubSubBrok("BusInfoByPub");
+            out.writeObject(msg);
             out.flush();
         } catch (IOException e) {
             System.err.println("Couldn't send from Pub to Broker");
@@ -98,16 +99,16 @@ public class Publisher {
             for (int j = 0; j < PubsDuty.size(); j++) {
                 if (allchoices.get(i).topics.contains(PubsDuty.get(j))) {
                     try {
-                        requestSocket = new Socket(IPPORT.get(allchoices.get(i).port+""), allchoices.get(i).port);
+                        requestSocket = new Socket(IPPORT.get(allchoices.get(i).port + ""), allchoices.get(i).port);
                         ObjectOutputStream out = new ObjectOutputStream(requestSocket.getOutputStream());
                         PubHandler ph = new PubHandler(requestSocket, out, allchoices.get(i).port);
                         ph.start();
                         out.flush();
                         break;
                     } catch (Exception e) {
-						System.out.println(IPPORT.get(allchoices.get(i)));
+                        System.out.println(IPPORT.get(allchoices.get(i)));
                         System.err.println(allchoices.get(i).port);
-						e.printStackTrace();
+                        e.printStackTrace();
                     }
                 }
             }
@@ -125,7 +126,7 @@ public class Publisher {
      * Finally, a socket is created using the Publisher's port, used for communication with the Broker.
      */
     public static void init() {
-        busLines = FileReaders.readHash(new File("busLinesNew.txt"));
+        busLines = FileReaders.readBusLines(new File("busLinesNew.txt"));
         System.out.println("Which Publisher is this? Type 1 for first & 2 for second: ");
         Scanner input = new Scanner(System.in);
         int choice = input.nextInt();
@@ -134,9 +135,11 @@ public class Publisher {
         int flag = 0;
         if (choice == 1) {
             for (String key : busLines.keySet()) {
-                PubsDuty.add(key);
-                flag++;
-                if (flag == busLines.size() / 2) {
+                if (!PubsDuty.contains(busLines.get(key))) {
+                    if (!busLines.get(key).equals("036"))
+                    PubsDuty.add(busLines.get(key));
+                }
+                if (PubsDuty.size() == 9) {
                     break;
                 }
             }
@@ -145,7 +148,8 @@ public class Publisher {
             for (String key : busLines.keySet()) {
                 flag++;
                 if (flag > busLines.size() / 2) {
-                    PubsDuty.add(key);
+                    if (!PubsDuty.contains(busLines.get(key)))
+                        PubsDuty.add(busLines.get(key));
                 }
             }
             System.out.println("Publisher_2[" + portid + "]: " + PubsDuty);

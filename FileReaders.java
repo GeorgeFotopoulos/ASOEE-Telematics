@@ -75,6 +75,37 @@ public class FileReaders {
         return busLines;
     }
 
+    public static HashMap<String, String> readRoutCodes(File fileName) {
+
+        HashMap<String, String> routCodes = new HashMap<>();
+        BufferedReader br = null;
+        FileReader fr = null;
+        try {
+            fr = new FileReader(fileName);
+            br = new BufferedReader(fr);
+            String sCurrentLine;
+            while ((sCurrentLine = br.readLine()) != null) {
+                StringTokenizer st = new StringTokenizer(sCurrentLine, ",");
+                String RouteCode = st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                String Description = st.nextToken();
+                routCodes.put(Description,RouteCode);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) br.close();
+                if (fr != null) fr.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return routCodes;
+    }
+
+
 
     /**
      * This method reads a file and stores some of its contents (lineCode, latitude, longitude) in an Array List.
@@ -94,11 +125,11 @@ public class FileReaders {
             while ((sCurrentLine = br.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(sCurrentLine, ",");
                 String lineCode = st.nextToken();
-                st.nextToken();
-                st.nextToken();
+                String RouteCode = st.nextToken();
+                String VehicleId =st.nextToken();
                 latitude = st.nextToken();
                 longitude = st.nextToken();
-                busPositions.add(new Message("NoTopicMsg", lineCode, latitude + ", " + longitude));
+                busPositions.add(new Message("NoTopicMsg", lineCode ,RouteCode,VehicleId,latitude + ", " + longitude));
             }
         } catch (IOException e) {
             e.printStackTrace();
